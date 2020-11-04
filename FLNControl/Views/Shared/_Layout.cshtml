@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["TituloPagina"] | FLNControl</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="~/adminlte3/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/adminlte3/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/adminlte3/dist/css/adminlte.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="~/adminlte3/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+    @RenderSection("Styles", false)
+
+</head>
+<body class="@ViewData["BodyClass"]">
+    <div>
+        @RenderBody()
+    </div>
+    <script src="~/adminlte3/plugins/jquery/jquery.min.js"></script>
+    <script src="~/adminlte3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/adminlte3/dist/js/adminlte.min.js"></script>
+    <script src="~/adminlte3/plugins/toastr/toastr.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["TituloPagina"] = "Index";
+    ViewData["BodyClass"] = "hold-transition login-page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    <script src="~/js/View/Login/login.js"></script>
+}
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="../../index2.html"><b>Sistema</b> FLN Control</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body login-card-body">
+            <form>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Login">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="Senha" id="senha" placeholder="Senha">
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="button" class="btn btn-primary btn-block" value="Entrar" onclick="entrarSistema()">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

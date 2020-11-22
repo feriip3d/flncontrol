@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["TituloPagina"] = "Movimentacao";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+@section Scripts
+{
+    <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+    <script src="~/js/View/GerirCaixa/movimentacao.js"></script>
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Movimentação de Caixa</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-secondary">
+                    <div class="card-body row">
+                        <div class="col-4">
+                            <label for="operacaoForm">Operação *</label>
+                            <select class="form-control custom-select required" id="operacaoSelected">
+                                <option selected disabled>Selecione</option>
+                                <option>Sangria</option>
+                                <option>Aporte</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputDataAbert">Data Abertura *</label>
+                            <input type="date" id="inputDataAbert" class="form-control required">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputValorAtual">Valor em Caixa</label>
+                            <input type="text" disabled id="inputValorAtual" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="card-body row">
+                        <div class="form-group col-md-6">
+                            <label for="inputMotivo">Motivo *</label>
+                            <input type="text" id="inputMotivo" class="form-control required">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="dinheiro">Valor Sangria/Aporte * </label>
+                            <input type="text" id="dinheiro" class="form-control required" onblur="mascaraMoney(this)">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="submit" value="Efetuar Movimentacao" class="btn btn-outline-success float-right" onclick="realizarMovimentacao()">
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

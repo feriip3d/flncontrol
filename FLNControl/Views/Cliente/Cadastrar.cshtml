@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Cadastrar";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+@section  Scripts{ 
+    <script src="~/js/View/Cliente/Cadastrar.js"></script>
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Cadastro Completo de Cliente</h3>
+                    </div>
+                    <form role="form">
+                        <div class="card-body">
+                            <div id="corpoformulario" class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="inputNome">Nome</label>
+                                    <input type="text" class="form-control" id="inputNome" placeholder="Nome...">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="inputCpf">CPF</label>
+                                    <input type="text" class="form-control" id="inputCpf" placeholder="Digite o cpf...">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputTelefone">Telefone</label>
+                                    <input type="text" class="form-control" id="inputTelefone" placeholder="Nome...">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputEmail">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Nome...">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputDataNascimento">Data Nascimento</label>
+                                    <input type="date" class="form-control" id="inputDataNascimento" placeholder="Nome...">
+                                </div>
+                                <div class="col-md-2 form-group custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="checkFiado" onclick="CadastrarConfig.AtivaInformaçõesFiado(this)">
+                                    <label for="checkFiado" class="custom-control-label">Fiado</label>
+                                </div>
+                                <div id="elementValorFiado" class="col-md-3 form-group" hidden>
+                                    <label for="inputValorLimiteFiado">Valor Limite Fiado</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </span>
+                                        </div>
+                                        <input type="number" class="form-control" id="inputValorLimiteFiado" placeholder="0.000,00">
+
+                                    </div>
+                                </div>
+                                <div id="elementParcelasFiado" class="col-md-3 form-group" hidden>
+                                    <label for="inputParcelasFiado">Limite de Parcelamento</label>
+                                    <select id="inputParcelasFiado" class="custom-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">Parcelamento livre</option>
+                                    </select>
+                                </div>
+                                <div id="elementDiasFiado" class="col-md-4 form-group" hidden>
+                                    <label for="inputDiasVencimento">Vencimento</label>
+                                    <select id="inputDiasVencimento" class="custom-select">
+                                        <option value="5">Vencimento em 5 dias após a compra</option>
+                                        <option value="10">Vencimento em 10 dias após a compra</option>
+                                        <option value="15">Vencimento em 15 dias após a compra</option>
+                                        <option value="20">Vencimento em 20 dias após a compra</option>
+                                        <option value="25">Vencimento em 25 dias após a compra</option>
+                                        <option value="30">Vencimento em 30 dias após a compra</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary text-white" onclick="Cadastrar.GravarCliente()">Gravar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

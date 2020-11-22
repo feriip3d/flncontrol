@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Cadastrar";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+@section Scripts{ 
+    <script src="~/js/View/Fornecedor/Cadastrar.js"></script>
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Cadastro Completo de Cliente</h3>
+                    </div>
+                    <form role="form">
+                        <div class="card-body">
+                            <div id="corpoformulario" class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="inputNome">Nome</label>
+                                    <input type="text" class="form-control" id="inputNome" placeholder="Nome...">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="inputCpf">CNPJ</label>
+                                    <input type="text" class="form-control" id="inputCpf" placeholder="Digite o CNPJ">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputTelefone">Telefone</label>
+                                    <input type="text" class="form-control" id="inputTelefone" placeholder="(DD) 9 0000-0000">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputEmail">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="empresa@empresa.com.br">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputSite">Site</label>
+                                    <input type="text" class="form-control" id="inputSite" placeholder="Empresa.com.br">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputNomeVendedor">Nome Vendedor</label>
+                                    <input type="text" class="form-control" id="inputNomeVendedor" placeholder="Nome do Vendedor...">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="inputTelefoneVendedor">Telefone Vendedor</label>
+                                    <input type="text" class="form-control" id="inputTelefoneVendedor" placeholder="(DD) 9 0000-0000">
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary text-white" onclick="Cadastrar.GravarCliente()">Gravar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

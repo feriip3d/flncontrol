@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Fornecedores";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+@section Scripts
+{
+    <script src="~/js/View/Fornecedor/Index.js"></script>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Fornecedores</h2>
+
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 400px;">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscar Por</button>
+                                <div class="dropdown-menu">
+                                    <a id="opNome" class="dropdown-item" data-toggle="collapse" data-target="#BuscarNome" onclick="IndexConfig.opNome()">Nome</a>
+                                    <a id="opEmail" class="dropdown-item" data-toggle="collapse" data-target="#BuscarEmail" onclick="IndexConfig.opEmail()">Email</a>
+                                    <a id="opVendedor" class="dropdown-item" data-toggle="collapse" data-target="#BuscarNomeVendedor" onclick="IndexConfig.opNomeVendedor()">Nome Vendedor</a>
+                                    <a id="opTelefone" class="dropdown-item" data-toggle="collapse" data-target="#BuscarTelefone" onclick="IndexConfig.opTelefone()">Telefone do Vendedor</a>
+                                </div>
+                            </div>
+                            <div id="BuscarNome" class="collapse multi-collapse">
+                                <div class="input-group-append">
+                                    <input id="inpNome" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Nome">
+                                    <button type="submit" class="btn btn-default" onclick="Index.PesquisarFornecedoresPorNome()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div id="BuscarEmail" class="collapse multi-collapse">
+                                <div class="input-group-append">
+                                    <input id="inpEmail" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Email">
+                                    <button type="submit" class="btn btn-default" onclick="Index.PesquisarFornecedoresPorEmail()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div id="BuscarNomeVendedor" class="collapse multi-collapse">
+                                <div class="input-group-append">
+                                    <input id="inpNomeVendedor" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Nome do Vendedor">
+                                    <button type="submit" class="btn btn-default" onclick="Index.PesquisarFornecedoresPorNomeVendedor()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div id="BuscarTelefone" class="collapse multi-collapse">
+                                <div class="input-group-append">
+                                    <input id="inpTelefoneVendedor" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Telefone do Vendedor">
+                                    <button type="submit" class="btn btn-default" onclick="Index.PesquisarFornecedoresPorTelefoneVendedor()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0" style="height: 500px;">
+                <table id="tableAll" class="table table-head-fixed text-nowrap">
+                    <thead id="tableHead">
+                        <tr>
+                            <th>Código</th>
+                            <th>Empresa</th>
+                            <th>E-mail</th>
+                            <th>Representante</th>
+                            <th>Telefone</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="6">
+                                <h3>
+                                    Tabela vazia...
+                                </h3>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-primary" href="/Fornecedor/Cadastrar">
+                    Novo Fornecedor
+                </a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+

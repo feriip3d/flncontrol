@@ -12,6 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Persistence\RepositoryInterface\" />
+      <Folder Include="Persistence\Repository\" />
       <Folder Include="wwwroot\css\" />
     </ItemGroup>
 

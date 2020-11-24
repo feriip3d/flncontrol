@@ -36,7 +36,6 @@
             )
             .then(
                 function (obj) {
-
                     Index.CarregarTabela(obj);
                 }
             )

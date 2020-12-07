@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["TituloPagina"] = "Parâmetros do Sistema";
+    ViewData["ClasseBody"] = "hold-transition register-page";
+    Layout = "_LayoutDashboard";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Parâmetros do Sistema</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" id="f-parametros">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="i-razaosc"><b style="color:red">*</b> Razão Social</label>
+                        <input type="text" class="form-control" id="i-razaosc" placeholder="Insira a Razão Social da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-nomef"><b style="color:red">*</b> Nome Fantasia</label>
+                        <input type="text" class="form-control" id="i-nomef" placeholder="Insira o Nome Fantasia da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-cnpj"><b style="color:red">*</b> CNPJ</label>
+                        <input type="text" class="form-control" id="i-cnpj" placeholder="Insira o CNPJ da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-ie"><b style="color:red">*</b> Inscrição Estadual</label>
+                        <input type="text" class="form-control" id="i-ie" placeholder="Insira a inscrição estadual da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-tel"><b style="color:red">*</b> Telefone</label>
+                        <input type="text" class="form-control" id="i-tel" placeholder="Insira o telefone de contato da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-email"><b style="color:red">*</b> Email</label>
+                        <input type="text" class="form-control" id="i-email" placeholder="Insira o email de contato da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-site"><b style="color:red">*</b> Site</label>
+                        <input type="text" class="form-control" id="i-site" placeholder="Insira o site">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-logo-g"><b style="color:red">*</b> Logo Grande (Caminho)</label>
+                        <input type="text" class="form-control" id="i-logo-g" placeholder="Insira o caminho para o logo grande">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-logo-p"><b style="color:red">*</b> Logo Pequeno (Caminho)</label>
+                        <input type="text" class="form-control" id="i-logo-p" placeholder="Insira o caminho para o logo pequeno">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-cnpj"><b style="color:red">*</b> Endereço</label>
+                        <input type="text" class="form-control" id="i-ie" placeholder="Insira o endereço da empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="i-cidade"><b style="color:red">*</b> Cidade</label>
+                        <input type="text" class="form-control" id="i-cidade" placeholder="Insira a cidade">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>UF</label>
+                            <select class="form-control" id="s-uf">
+                                <option>Selecione...</option>
+                                <option value="SP">SP</option>
+                                <option value="PR">PR</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-default" onclick="FLNProduto.telaConsultar()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="FLNProduto.limpar('f-cadastrar')">Limpar</button>
+                    <button type="button" class="btn btn-success float-right" onclick="FLNProduto.cadastrar()">Consultar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/adminlte3/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts
+{
+    <script type="module" src="~/flncontrol/js/Produto.js"></script>
+    <script src="~/adminlte3/plugins/toastr/toastr.min.js"></script>
+}

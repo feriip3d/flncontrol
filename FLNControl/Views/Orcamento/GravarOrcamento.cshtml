@@ -1,0 +1,80 @@
+﻿@model IEnumerable<FLNControl.Models.Produto>
+@{
+    ViewData["Title"] = "GravarOrcamento";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+@section Scripts
+{
+    <script src="~/js/View/Orcamento/orcamento.js"></script>
+}
+
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <h1>Cadastrar Novo Orçamento</h1>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <form>
+                <div class="row"  id="corpoformulario">
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Informações</h3>
+                            </div>
+                            <div class="col-4">
+                                <label for="nomeClienteForm">Cliente *</label>
+                                <select class="form-control custom-select" id="statusSelected">
+                                    <option selected disabled>CLIENTE</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 form-group custom-control custom-checkbox">
+                                <label>Produtos</label>
+                                @foreach (var produto in Model)
+                                {
+                                    <table>
+                                      <tr>
+                                          <td><input type="text" disabled value="@produto.Descricao" /></td>
+                                          <td><input type="number" style="float-right" name="quantidadeProdutos" id="quantidadeProdutos" /></td>
+                                      </tr>
+                                    </table>
+                                }
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input type="button" value="Cadastrar Orcamento" class="btn btn-outline-primary float-right" onclick="gravarNovoOrcamento()">
+                    </div>
+                </div>
+            </form>
+            <p>&nbsp;</p>
+            <p id="validate_message">&nbsp;</p>
+            <p>&nbsp;</p>
+            <!-- /.content -->
+        </div>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+</body>
+

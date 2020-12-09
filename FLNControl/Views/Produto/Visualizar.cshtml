@@ -1,0 +1,90 @@
+@{
+    ViewData["TituloPagina"] = "Visualizar Produto";
+    ViewData["ClasseBody"] = "hold-transition register-page";
+    Layout = "_LayoutDashboard";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Visualizar Produto: @ViewBag.Produto.Id - @ViewBag.Produto.Descricao </h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" id="f-cadastrar">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="i-desc">Descrição</label>
+                        <input type="text" class="form-control" id="i-desc" value="@ViewBag.Produto.Descricao" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-categ">Categoria</label>
+                        <input type="text" class="form-control" id="i-categ" value="@ViewBag.Produto.Categoria" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-brand">Marca</label>
+                        <input type="text" class="form-control" id="i-brand" value="@ViewBag.Produto.Marca" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-valor-compra">Valor de Compra</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="text" class="form-control" id="i-valor-compra" value="@ViewBag.Produto.ValorCompra" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-valor-venda">Valor de Compra</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="text" class="form-control" id="i-valor-venda" value="@ViewBag.Produto.ValorVenda" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-default" onclick="FLNProduto.telaConsultar()">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-excluir">Excluir</button>
+                    <button type="button" class="btn btn-primary float-right" onclick="FLNProduto.telaAlterar(@ViewBag.Produto.Id)">Alterar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-excluir">
+    <div class="modal-dialog">
+        <div class="modal-content bg-danger">
+            <div class="modal-header">
+                <h4 class="modal-title">Excluir Produto</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja mesmo excluir esse produto?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-light" onclick="FLNProduto.excluir(@ViewBag.Produto.Id)">Excluir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Styles
+{
+      <link rel="stylesheet" href="~/adminlte3/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts
+{
+    <script type="module" src="~/flncontrol/js/Produto.js"></script>
+    <script src="~/adminlte3/plugins/toastr/toastr.min.js"></script>
+}

@@ -15,7 +15,7 @@ namespace engenharia.Controllers.Acesso
             ColaboradorDAL model = new ColaboradorDAL();
 
             List<Colaborador> lista = model.Listar();
-            return View(lista);
+                return View(lista);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace engenharia.DAL.ParametroDAL
         {
             Parametro parametros = null;
             MySqlPersistence database = new MySqlPersistence();
-            string sql = @"SELECT * FROM parametros WHERE par_cod = '1' LIMIT 1";
+            string sql = @"SELECT * FROM parametrizacao WHERE par_codigo = '1' LIMIT 1";
 
             DbDataReader result = database.ExecuteSelect(sql);
             if (result.HasRows)
@@ -24,7 +24,7 @@ namespace engenharia.DAL.ParametroDAL
                 parametros.Site = result["par_site"].ToString();
                 parametros.Email = result["par_email"].ToString();
                 parametros.Cnpj = result["par_cnpj"].ToString();
-                parametros.InscricaoEstadual = result["par_insc_estadual"].ToString();
+                parametros.InscricaoEstadual = result["par_inscricao_estadual"].ToString();
                 parametros.Telefone = result["par_telefone"].ToString();
                 parametros.UrlLogoGrande = result["par_url_logo_grande"].ToString();
                 parametros.UrlLogoPequeno = result["par_url_logo_pequeno"].ToString();

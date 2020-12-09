@@ -1,5 +1,5 @@
 @{
-    ViewData["TituloPagina"] = "Cadastrar Produto";
+    ViewData["TituloPagina"] = "Visualizar Produto";
     ViewData["ClasseBody"] = "hold-transition register-page";
     Layout = "_LayoutDashboard";
 }
@@ -49,7 +49,7 @@
                 <div class="card-footer">
                     <button type="button" class="btn btn-default" onclick="FLNProduto.telaConsultar()">Cancelar</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-excluir">Excluir</button>
-                    <button type="button" class="btn btn-primary float-right" onclick="FLNProduto.alterar(@ViewBag.Produto.Id)">Alterar</button>
+                    <button type="button" class="btn btn-primary float-right" onclick="FLNProduto.telaAlterar(@ViewBag.Produto.Id)">Alterar</button>
                 </div>
             </form>
         </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-outline-light" onclick="FLNProduto.Excluir(@ViewBag.Produto.Id)">Excluir</button>
+                <button type="button" class="btn btn-outline-light" onclick="FLNProduto.excluir(@ViewBag.Produto.Id)">Excluir</button>
             </div>
         </div>
         <!-- /.modal-content -->

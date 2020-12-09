@@ -70,7 +70,9 @@ window.FLNProduto = {
             toastr.error('O Campo <b>Termo de Pesquisa</b> precisa ser preenchido.');
         } else if (termo.trim().length < 3) {
             toastr.error('O Campo <b>Termo de Pesquisa</b> precisa ter no mínimo <b>3</b> caracteres.');
-        } else {
+        }
+        else
+        {
             if(FLNUtil.isEmpty(tipo)) {
                 toastr.error('O Campo <b>Tipo</b> precisa ser selecionado!');
             } else {
@@ -220,6 +222,65 @@ window.FLNProduto = {
                 FLNProduto.limpar('f-cadastrar');
             });
     },
+
+    alterar: () => {
+        let id = document.querySelector("#i-prod-codigo").value;
+        let desc = document.querySelector("#i-desc").value;
+        let categ = document.querySelector("#i-categ").value;
+        let brand = document.querySelector("#i-brand").value;
+        let valorVenda = document.querySelector("#i-valor-venda").value;
+        let valorCompra = document.querySelector("#i-valor-compra").value;
+
+        if (FLNUtil.isEmpty(desc)) {
+            toastr.error('O campo <b>Descrição</b> é obrigatório!');
+            return;
+        }
+
+        if (FLNUtil.isEmpty(categ)) {
+            toastr.error('O campo <b>Categoria</b> é obrigatório!');
+            return;
+        }
+
+        if (FLNUtil.isEmpty(brand)) {
+            toastr.error('O campo <b>Marca</b> é obrigatório!');
+            return;
+        }
+
+        if (FLNUtil.isEmpty(valorCompra) || parseInt(valorCompra) <= 0) {
+            toastr.error('O campo <b>Valor de Compra</b> é obrigatório!');
+            return;
+        }
+
+        if (FLNUtil.isEmpty(valorVenda) || parseInt(valorVenda) <= 0) {
+            toastr.error('O campo <b>Valor de Venda</b> é obrigatório!');
+            return;
+        }
+        let requestData = {
+            id: id,
+            desc: desc,
+            categ: categ,
+            marca: brand,
+            precoVenda: valorVenda,
+            precoCompra: valorCompra,
+        }
+
+        HTTPRequest.post('/Produto/Alterar/Gravar', requestData)
+            .then((requestResponse) => {
+                return requestResponse.json();
+            })
+            .then((requestResponse) => {
+                if (requestResponse.success) {
+                    window.location.href = "/Produto/Visualizar/" + id;
+                } else {
+                    toastr.warning('Ocorreu um erro ao cadastrar o produto. Verifique os campos e tente novamente.');
+                }
+            })
+            .catch((requestResponse) => {
+                console.log(requestResponse);
+                toastr.error('Ocorreu um erro inesperado ao cadastrar o produto. Tente novamente mais tarde.');
+            }).finally(() => {
+            });
+    },
     
     inicio: () => {
         window.location.href = "/";
@@ -234,11 +295,7 @@ window.FLNProduto = {
     },
 
     excluir: (id) => {
-        let requestData = {
-            id: id
-        };
-        
-        HTTPRequest.post('/Produto/Excluir', requestData)
+        HTTPRequest.get('/Produto/Excluir/'+ id)
             .then((requestResponse) => {
                 return requestResponse.json();
             })
@@ -254,7 +311,6 @@ window.FLNProduto = {
                 console.log(requestResponse);
                 toastr.error('Ocorreu um erro inesperado ao excluir o produto. Tente novamente mais tarde.');
             }).finally(() => {
-            FLNProduto.limpar('f-cadastrar');
         });
     },
     

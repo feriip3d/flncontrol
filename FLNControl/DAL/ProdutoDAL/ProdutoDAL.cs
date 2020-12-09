@@ -12,7 +12,7 @@ namespace engenharia.DAL.ProdutoDAL
         {
             Produto produto = null;
             MySqlPersistence database = new MySqlPersistence();
-            string sql = @"SELECT * FROM produtos WHERE prod_id = @pProdId LIMIT 1";
+            string sql = @"SELECT * FROM produto WHERE pro_codigo = @pProdId LIMIT 1";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@pProdId", id);
@@ -23,12 +23,12 @@ namespace engenharia.DAL.ProdutoDAL
                 produto = new Produto();
                 result.Read();
 
-                produto.Id = Convert.ToInt32(result["prod_id"]);
-                produto.Descricao = result["prod_descricao"].ToString();
-                produto.Categoria = result["prod_categoria"].ToString();
-                produto.Marca = result["prod_marca"].ToString();
-                produto.ValorVenda = Convert.ToDecimal(result["prod_valor_venda"]);
-                produto.ValorCompra = Convert.ToDecimal(result["prod_valor_compra"]);
+                produto.Id = Convert.ToInt32(result["pro_codigo"]);
+                produto.Descricao = result["pro_descricao"].ToString();
+                produto.Categoria = result["pro_categoria"].ToString();
+                produto.Marca = result["pro_marca"].ToString();
+                produto.ValorVenda = Convert.ToDecimal(result["pro_valor_venda"]);
+                produto.ValorCompra = Convert.ToDecimal(result["pro_valor_compra"]);
             }
 
             database.Close();
@@ -39,7 +39,7 @@ namespace engenharia.DAL.ProdutoDAL
         public List<Produto> findByDescription(string desc)
         {
             MySqlPersistence database = new MySqlPersistence();
-            string sql = @"SELECT * FROM produtos WHERE LOWER(prod_descricao) LIKE @pProdDesc";
+            string sql = @"SELECT * FROM produto WHERE LOWER(pro_descricao) LIKE @pProdDesc";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@pProdDesc", "%" + desc.ToLower() + "%");
@@ -52,12 +52,12 @@ namespace engenharia.DAL.ProdutoDAL
                 while (result.Read())
                 {
                     produto = new Produto();
-                    produto.Id = Convert.ToInt32(result["prod_id"]);
-                    produto.Descricao = result["prod_descricao"].ToString();
-                    produto.Categoria = result["prod_categoria"].ToString();
-                    produto.Marca = result["prod_marca"].ToString();
-                    produto.ValorVenda = Convert.ToDecimal(result["prod_valor_venda"]);
-                    produto.ValorCompra = Convert.ToDecimal(result["prod_valor_compra"]);
+                    produto.Id = Convert.ToInt32(result["pro_codigo"]);
+                    produto.Descricao = result["pro_descricao"].ToString();
+                    produto.Categoria = result["pro_categoria"].ToString();
+                    produto.Marca = result["pro_marca"].ToString();
+                    produto.ValorVenda = Convert.ToDecimal(result["pro_valor_venda"]);
+                    produto.ValorCompra = Convert.ToDecimal(result["pro_valor_compra"]);
                     listaProduto.Add(produto);
                 }
             }
@@ -70,7 +70,7 @@ namespace engenharia.DAL.ProdutoDAL
         public List<Produto> findByCategory(string categ)
         {
             MySqlPersistence database = new MySqlPersistence();
-            string sql = @"SELECT * FROM produtos WHERE LOWER(prod_categoria) LIKE @pProdCateg";
+            string sql = @"SELECT * FROM produto WHERE LOWER(pro_categoria) LIKE @pProdCateg";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@pProdCateg", "%" + categ.ToLower() + "%");
@@ -83,12 +83,12 @@ namespace engenharia.DAL.ProdutoDAL
                 while (result.Read())
                 {
                     produto = new Produto();
-                    produto.Id = Convert.ToInt32(result["prod_id"]);
-                    produto.Descricao = result["prod_descricao"].ToString();
-                    produto.Categoria = result["prod_categoria"].ToString();
-                    produto.Marca = result["prod_marca"].ToString();
-                    produto.ValorVenda = Convert.ToDecimal(result["prod_valor_venda"]);
-                    produto.ValorCompra = Convert.ToDecimal(result["prod_valor_compra"]);
+                    produto.Id = Convert.ToInt32(result["pro_codigo"]);
+                    produto.Descricao = result["pro_descricao"].ToString();
+                    produto.Categoria = result["pro_categoria"].ToString();
+                    produto.Marca = result["pro_marca"].ToString();
+                    produto.ValorVenda = Convert.ToDecimal(result["pro_valor_venda"]);
+                    produto.ValorCompra = Convert.ToDecimal(result["pro_valor_compra"]);
                     listaProduto.Add(produto);
                 }
             }
@@ -101,7 +101,7 @@ namespace engenharia.DAL.ProdutoDAL
         public List<Produto> findByBrand(string brand)
         {
             MySqlPersistence database = new MySqlPersistence();
-            string sql = @"SELECT * FROM produtos WHERE LOWER(prod_marca) LIKE @pProdBrand";
+            string sql = @"SELECT * FROM produto WHERE LOWER(pro_marca) LIKE @pProdBrand";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@pProdBrand", "%" + brand.ToLower() + "%");
@@ -114,12 +114,12 @@ namespace engenharia.DAL.ProdutoDAL
                 while (result.Read())
                 {
                     produto = new Produto();
-                    produto.Id = Convert.ToInt32(result["prod_id"]);
-                    produto.Descricao = result["prod_descricao"].ToString();
-                    produto.Categoria = result["prod_categoria"].ToString();
-                    produto.Marca = result["prod_marca"].ToString();
-                    produto.ValorVenda = Convert.ToDecimal(result["prod_valor_venda"]);
-                    produto.ValorCompra = Convert.ToDecimal(result["prod_valor_compra"]);
+                    produto.Id = Convert.ToInt32(result["pro_codigo"]);
+                    produto.Descricao = result["pro_descricao"].ToString();
+                    produto.Categoria = result["pro_categoria"].ToString();
+                    produto.Marca = result["pro_marca"].ToString();
+                    produto.ValorVenda = Convert.ToDecimal(result["pro_valor_venda"]);
+                    produto.ValorCompra = Convert.ToDecimal(result["pro_valor_compra"]);
                     listaProduto.Add(produto);
                 }
             }
@@ -137,8 +137,8 @@ namespace engenharia.DAL.ProdutoDAL
             if (produto.Id == 0)
             {
                 sql = @"INSERT INTO 
-                    produtos(prod_descricao, prod_categoria, prod_marca, 
-                        prod_valor_compra, prod_valor_venda)
+                    produto(pro_descricao, pro_categoria, pro_marca, 
+                        pro_valor_compra, pro_valor_venda)
                     VALUES(@pProdDescricao, @pProdCategoria, @pProdMarca,
                         @pProdValorCompra, @pProdValorVenda
                     )";
@@ -146,13 +146,13 @@ namespace engenharia.DAL.ProdutoDAL
             else
             {
                 sql = @"UPDATE 
-                    produtos SET prod_descricao = @pProdDescricao, 
-                        prod_categoria = @pProdCategoria, 
-                        prod_marca = @pProdMarca, 
-                        prod_valor_compra = @pProdValorCompra,
-                        prod_valor_venda = @pProdValorVenda
-                    WHERE prod_id = @pProdId";
-                parameters.Add("@pProdId", "'" + produto.Id + "'");
+                    produto SET pro_descricao = @pProdDescricao, 
+                        pro_categoria = @pProdCategoria, 
+                        pro_marca = @pProdMarca, 
+                        pro_valor_compra = @pProdValorCompra,
+                        pro_valor_venda = @pProdValorVenda
+                    WHERE pro_codigo = @pProdId";
+                parameters.Add("@pProdId", produto.Id);
             }
 
             parameters.Add("@pProdDescricao", produto.Descricao);
@@ -163,6 +163,16 @@ namespace engenharia.DAL.ProdutoDAL
             database.ExecuteNonQuery(sql, parameters);
 
             return database.UltimoID;
+        }
+
+        public int delete(int id)
+        {
+            MySqlPersistence database = new MySqlPersistence();
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            string sql = @"DELETE FROM produto WHERE pro_codigo = @pProdId";
+            parameters.Add("@pProdId", id);
+
+            return database.ExecuteNonQuery(sql, parameters);
         }
     }
 }

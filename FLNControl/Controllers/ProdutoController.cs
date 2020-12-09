@@ -35,6 +35,7 @@ namespace FLNControl.Controllers
             return View();
         }
 
+        [Route("Produto/Alterar/Gravar")]
         public IActionResult Update([FromBody] JsonElement data)
         {
             ProdutoDAL dal = new ProdutoDAL();
@@ -44,21 +45,25 @@ namespace FLNControl.Controllers
             prod.Marca = data.GetProperty("marca").ToString();
             prod.ValorCompra = Convert.ToDecimal(data.GetProperty("precoCompra").ToString());
             prod.ValorVenda = Convert.ToDecimal(data.GetProperty("precoVenda").ToString());
-
-            bool success = dal.save(prod) > 0;
+            dal.save(prod);
 
             return Json(new
             {
-                success = success
+                success = true
             });
         }
 
-        // [Route("Produto/Excluir/{id}")]
-        // public IActionResult Visualizar(int id)
-        // {
-        // ProdutoRepository prodrepo = new ProdutoRepository();
-        // prodrepo.delete(new User(id));
-        // }
+        [Route("Produto/Excluir/{id}")]
+        public IActionResult Excluir(int id)
+        {
+            ProdutoDAL dal = new ProdutoDAL();
+            dal.delete(id);
+
+            return Json(new
+            {
+                success = true
+            });
+        }
 
         // GET
         public IActionResult Cadastrar()

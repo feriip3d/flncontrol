@@ -58,7 +58,15 @@ namespace FLNControl.Controllers
 
             List<Endereco> listaEndereco = endereco.ListarTodosEnderecos();
 
-            return Json(listaEndereco);
+            var response = new {
+                header = new {
+                    status = true,
+                    mensagem = "Retornou"                    
+                },
+                dados = listaEndereco
+            };
+
+            return Json(response);
         }
     }
 }

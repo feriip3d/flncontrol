@@ -1,52 +1,56 @@
 ﻿var Endereco = {
-    CarregarComboboxEstados: function () { },
-    CarregarComboboxCidades: function () { },
     BuscarTabelaEnderecos: function () {
-    HTTPClient.get('/Endereco/ListarTodosEnderecosCompletos')
-        .then(
-            function (retornoServidor) {
-                return retornoServidor.json();
-            }
-        ).then(
-            function (obj) {
-                console.log(obj);
-                Endereco.CarregarTabelaEnderecos(obj);
-            }
-        ).catch(
-            function () {
-                alert('Erro no servidor');
-            }
-        ).finally(
-            function () { }
-        );
+        HTTPClient.get('/Endereco/ListarTodosEnderecosCompletos')
+            .then(
+                function (retornoServidor) {
+                    return retornoServidor.json();
+                }
+            ).then(
+                function (obj) {
+                    Endereco.CarregarTabelaEnderecos(obj.dados);
+                }
+            ).catch(
+                function () {
+                    alert('Erro no servidor');
+                }
+            ).finally(
+                function () { }
+            );
+
+    },
+    BuscarComboBoxEstados: function () {
 
     },
     CarregarTabelaEnderecos: function (listaDeEnderecos) {
         var divTabelaEndereco = document.querySelector('#tableBody');
         var linhas = '';
-        if (typeof (listaDeEnderecos) == "undefined") {
+        if (typeof (divTabelaEndereco) == "undefined") {
             ElementosEndereco.CriarTabela();
         }
-        else {
-            listaDeEnderecos.forEach((endereco) => {
-                linhas += ` <tr>
-                                <td>${endereco.codigo}</td>
-                                <td>${endereco.rua}</td>
-                                <td>${endereco.bairro}</td>
-                                <td>${endereco.cep}</td>
-                                <td>${endereco.descricao}</td>
-                                <td>
-                                    <button class="btn btn-outline-warning" value="${endereco.codigo}">
-                                        Editar
-                                    </button>
-                                    <button class="btn btn-outline-danger"  value="${endereco.codigo}">
-                                        Excluir
-                                    </button>
-                                </td>
-                            </tr>`;
+        listaDeEnderecos.forEach((endereco) => {
+            linhas += ` <tr>
+                            <td>${endereco.codigo}</td>
+                            <td>${endereco.rua}</td>
+                            <td>${endereco.bairro}</td>
+                            <td>${endereco.cep}</td>
+                            <td>${endereco.descricao}</td>
+                            <td>
+                                <button class="btn btn-outline-warning" value="${endereco.codigo}">
+                                    <span>
+                                        <i class="fa fa-edit"></i>
+                                    </span>
+                                </button>
+                                <button class="btn btn-outline-danger"  value="${endereco.codigo}">
+                                    <span>
+                                        <i class="fa fa-trash">
+                                        </i>
+                                    </span>
+                                </button>
+                            </td>
+                        </tr>`;
 
-            });
-        }
+        });
+        
         divTabelaEndereco.innerHTML = linhas;
     },
     CarregarFormulario: function (endereco) {
@@ -55,9 +59,23 @@
             <div class="col-12">
                 <div class="row ">
                     <div class="col-2">
-                        <div class="form-group" hidden>
+                        <div id="hiddenCodigoEndereco" class="form-group" hidden>
                             <label for="inputCodigoEndereco">Código</label>
                             <input type="number" class="form-control" id="inputCodigoEndereco" placeholder="" value="${typeof (endereco) != "undefined" ? endereco.codigo : '12'}">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="comboEstadoEndereco">Estado</label>
+                            <select id="comboEstadoEndereco" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="comboCidadeEndereco">Cidade</label>
+                            <select id="comboCidadeEndereco" class="form-control">
+                            </select>
                         </div>
                     </div>
                     <div class="col-6">
@@ -100,10 +118,16 @@
                     </div>
                 </div>
             </div>
-        `
-
-
-    }
+        `;
+    }, 
+    CarregarComboboxEstados: function () {
+        var selection = document.querySelector("#comboEstadoEndereco");
+        var elem = document.createElement('option');
+        elem.value = '1';
+        elem.text = 'text';
+        selection.add(elem, selection.option[0]);
+    },
+    CarregarComboboxCidades: function () { }
     
 }
 var ElementosEndereco = {
@@ -136,9 +160,33 @@ var ElementosEndereco = {
             <div class="col-12">
                 <div class="row ">
                     <div class="col-2">
-                        <div class="form-group" hidden>
+                        <div class="form-group">
                             <label for="inputCodigoEndereco">Código</label>
                             <input type="number" class="form-control" id="inputCodigoEndereco" placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="inputEstadoEndereco">Estado</label>
+                            <select id="inputEstadoEndereco" class="form-control">
+                              <option>option 1</option>
+                              <option>option 2</option>
+                              <option>option 3</option>
+                              <option>option 4</option>
+                              <option>option 5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="inputCidadeEndereco">Cidade</label>
+                            <select id="inputCidadeEndereco" class="form-control">
+                              <option>option 1</option>
+                              <option>option 2</option>
+                              <option>option 3</option>
+                              <option>option 4</option>
+                              <option>option 5</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-6">
@@ -175,7 +223,21 @@ var ElementosEndereco = {
                         <div class="form-group">
                             <label for="adicionarEndereco">Adicionar Novo Endereço </label>
                             <div id="BtnAdicionarEndereco" class="btn btn-outline-primary w-100">
-                                Gravar
+                                <span>
+                                    <i class="fa fa-save">
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="CancelarEndereco">Cancelar Cadastro</label>
+                            <div id="BtnAdicionarEndereco" class="btn btn-outline-danger w-100" onclick="ElementosEndereco.CriarElemento()">
+                                <span>
+                                    <i class="fa fa-trash">
+                                    </i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -185,9 +247,8 @@ var ElementosEndereco = {
 
 
     },
-    CriarTabela: function (listaDeEnderecos) {
+    CriarTabela: function () {
         var divTabelaEndereco = document.querySelector('#tabelaEndereco');
-        var linhas = '';
         divTabelaEndereco.innerHTML = `   
                             <h4>Endereços Cadastrados</h4>
                             <div class="card-body table-responsive p-0" style="height: 300px;">
@@ -221,6 +282,15 @@ var ElementosEndereco = {
 ElementosEndereco.CriarElemento();
 Endereco.BuscarTabelaEnderecos();
 /*Fim */
+/*
+ <div class="row">
+    <div id="cadastrarEndereco" class="col-md-12">
+    </div>
+</div>
+ */
+
+
+
 
 /*
 

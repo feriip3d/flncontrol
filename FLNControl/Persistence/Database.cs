@@ -17,7 +17,7 @@ namespace FLNControl.Persistence
 
         public Database()
         {
-            _connection = new MySqlConnection(@"SERVER=den1.mysql6.gear.host; DATABASE=eng2banco; UID=eng2banco; PWD=La4e1iOp3!!6;");
+            _connection = new MySqlConnection(@"SERVER=den1.mysql6.gear.host;DATABASE=eng2banco;UID=eng2banco;PWD=La4e1iOp3!!6;");
             _command = _connection.CreateCommand();
         }
 

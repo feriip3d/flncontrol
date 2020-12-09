@@ -14,7 +14,7 @@ namespace engenharia.DAL
         public MySqlCommand cmd { get; set; }
         public int UltimoID { get => ultimoID; set => ultimoID = value; }
 
-        public string constr = "SERVER=den1.mysql6.gear.host; DATABASE=eng2banco; UID=eng2banco; PWD=La4e1iOp3!!6;";
+        public string constr = "SERVER=den1.mysql6.gear.host;DATABASE=eng2banco;UID=eng2banco;PWD=La4e1iOp3!!6;";
 
         int ultimoID;
 

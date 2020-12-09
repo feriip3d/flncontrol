@@ -3,7 +3,6 @@
 function entrarSistema() {
     var login = $("#login").val();
     var senha = $("#senha").val();
-
     $.ajax({
         url: '/Colaborador/Autenticacao',
         dataType: 'html',
@@ -23,8 +22,8 @@ function entrarSistema() {
             $("#senha").val("");
         }
     }).fail(function (jqXHR, textstatus, msg) {
-            alert(msg);
-            $("#login").val("");
-            $("#senha").val("");
-        });
+        alert(msg);
+        $("#login").val("");
+        $("#senha").val("");
+    });
 }

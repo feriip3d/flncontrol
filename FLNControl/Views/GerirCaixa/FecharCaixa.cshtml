@@ -1,4 +1,4 @@
-﻿
+﻿@model engenharia.Models.Caixa.Caixa
 @{
     ViewData["TituloPagina"] = "FecharCaixa";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -7,6 +7,31 @@
 @section Scripts
 {
     <script src="~/js/View/GerirCaixa/abrirCaixa.js"></script>
+    <script src="~/js/View/GerirCaixa/movimentacao.js"></script>
+    <script>
+        function getDate() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+            console.log(today);
+            document.getElementById("inputDataAberturaFechar").value = today;
+        }
+
+
+        window.onload = function () {
+            getDate();
+        };
+    </script>
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -37,22 +62,64 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="dataAbertura">Data Fechamento * </label>
-                            <input type="date" id="inputDataAberturaFechar" class="form-control required">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputSpentBudget">Valor Disponibilizado: *</label>
-                            <input type="text" id="inputValorDispFechar" class="form-control required">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%">
+                                            
+                                        </th>
+                                        <th style="width: 60%">
+                                            Motivo
+                                        </th>
+                                        <th style="width: 20%">
+                                            Valor
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var caixa in Model.movimentacao)
+                                    {
+                                    <tr>
+                                        <td class="text">
+                                            @if (caixa.tipo == "Abertura")
+                                            {<i class="fas fa-money-bill-wave" style="color:#2ba640; width:3px"></i>}
+                                            @if (caixa.tipo == "Aporte")
+                                            {<i class="fas fa-plus" style="color:#17a2b8; width:3px"></i>}
+                                            @if (caixa.tipo == "Sangria")
+                                            {<i class="fas fa-minus" style="color:#dc3545; width:3px"></i>}
+                                        </td>
+                                        <td class="text">
+                                            @caixa.motivo
+                                        </td>
+                                        <td class="text">
+                                            @caixa.valor
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="dataAbertura">Data Fechamento * </label>
+                            <input type="date" id="inputDataAberturaFechar" class="form-control required" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSpentBudget">Valor Disponibilizado: *</label>
+                            <input type="text" id="inputValorDispFechar" class="form-control required" value="@Model.valor_final" disabled>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.card -->
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <input type="submit" value="Abrir Caixa" class="btn btn-success float-right" onclick="fecharCaixa()" />
+                <input type="submit" value="Fechar Caixa" class="btn btn-success float-right" onclick="fecharCaixa('@Model.data_abertura', '@Model.valor_final')" />
             </div>
         </div>
     </section>

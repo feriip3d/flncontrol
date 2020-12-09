@@ -2,7 +2,31 @@
 
 var validacaoMessage = "Por favor, responda o campo de preenchimento obrigatório (*)!";
 
-function realizarMovimentacao() {
+
+document.addEventListener('keydown', function (event) {
+    document.querySelector("#dinheiro").value = document.querySelector("#dinheiro").value.replace(/[^\d,]/g, '');
+
+    if (/[0-9]/.test(event.key)) {
+        var i = document.querySelector("#dinheiro").value.length;
+        if (i >= 2) {
+            if (i == 2) var dist = 1; else dist = 2;
+            document.querySelector("#dinheiro").value = document
+                .querySelector("#dinheiro")
+                .value
+                .replace(',', '')
+                .substring(0, document.querySelector("#dinheiro").value.length - dist)
+                + ',' + document
+                .querySelector("#dinheiro")
+                    .value
+                    .replace(',', '')
+                    .replace(/[^\d]/, '')
+                .substring(document.querySelector("#dinheiro").value.length - dist);
+        }
+    }
+});
+
+function realizarMovimentacao(data_abertura, valor_final) {
+    
     var operacao = $("#operacaoSelected").val();
     var data = $("#inputDataAbert").val();
     var valor = $("#inputValorAtual").val();
@@ -43,6 +67,33 @@ function realizarMovimentacao() {
         alert(validacaoMessage);
     }
     else {
+        var abertura = new Date(data_abertura);
+
+        var movimentacao = new Date(data);
+        movimentacao = new Date(movimentacao.getUTCFullYear(), movimentacao.getUTCMonth(), movimentacao.getUTCDate());
+        
+        if (abertura.getTime() > movimentacao.getTime()) {
+            console.log(abertura.getTime(), movimentacao.getTime());
+            alert("Data anterior a data de abertura.");
+            return;
+        }
+
+        if (dinheiro <= 0 ) {
+            alert('O valor informado não está correto, tente novamente');
+            $("#operacaoSelected").val("");
+            $("#inputMotivo").val("");
+            $("#dinheiro").val("");
+            return;
+        }
+
+        if (operacao == 'Sangria' && parseFloat(dinheiro) > parseFloat(valor_final)) {
+            alert("O valor informado não está disponível para a operação.");
+            $("#operacaoSelected").val("");
+            $("#inputMotivo").val("");
+            $("#dinheiro").val("");
+            return;
+        }
+
         $.ajax({
             url: '/GerirCaixa/MovimentacaoCaixa',
             dataType: 'html',
@@ -59,16 +110,12 @@ function realizarMovimentacao() {
             else {
                 alert("Erro ao tentar realizar Movimentação, por favor tente novamente!");
                 $("#operacaoSelected").val("");
-                $("#inputDataAbert").val("");
-                $("#inputValorAtual").val("");
                 $("#inputMotivo").val("");
                 $("#dinheiro").val("");
             }
         }).fail(function (jqXHR, textstatus, msg) {
             alert(msg);
             $("#operacaoSelected").val("");
-            $("#inputDataAbert").val("");
-            $("#inputValorAtual").val("");
             $("#inputMotivo").val("");
             $("#dinheiro").val("");
         });

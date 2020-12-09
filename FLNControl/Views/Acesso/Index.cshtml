@@ -18,11 +18,12 @@
 
         @using (Html.BeginForm("Gravar", "Colaborador", FormMethod.Post))
         {
-<div class="row">
-    <div class="col-2">
-        <input type="submit" class="btn btn-primary btn-block float-right" name="novoLogin" id="novoLogin" value="Cadastrar">
-    </div>
-</div>}
+            <div class="row">
+                <div class="col-2">
+                    <input type="submit" class="btn btn-primary btn-block float-right" name="novoLogin" id="novoLogin" value="Cadastrar">
+                </div>
+            </div>
+        }
     </section>
     <section class="content">
 
@@ -43,21 +44,37 @@
                     </thead>
 
                     <tbody>
-                        @foreach (var colaborador in Model)
-                        {
-            <tr>
-                <td class="text">
-                    @colaborador.nome
-                </td>
-                <td class="project-state">
-                    <span class="badge @(colaborador.status == "Ativo" ? "badge-success" : "badge-danger") ">
-                        @colaborador.status
-                    </span>
-                </td>
-                <td class="project-actions text-right">
-                    <input type="submit" class="btn btn-primary btn-block" name="novoLogin" id="novoLoginEdit" value="Editar" onclick="pegarDadosEdit('@colaborador.nome', '@colaborador.login', '@colaborador.senha', '@colaborador.cpf', '@colaborador.rg', '@colaborador.data_nasc', '@colaborador.telefone', '@colaborador.email', '@colaborador.cargo', '@colaborador.status', '@colaborador.nivel')" />
-                </td>
-            </tr>}
+                            @foreach (var colaborador in Model)
+                            {
+                        <tr>
+                            <td class="text">
+                                @colaborador.nome
+                            </td>
+                            <td class="project-state">
+                                <span class="badge @(colaborador.status == "Ativo" ? "badge-success" : "badge-danger") ">
+                                    @colaborador.status
+                                </span>
+                            </td>
+                            @using (Html.BeginForm("Editar", "Colaborador", FormMethod.Post))
+                            {
+                        <td class="project-actions text-right">
+                            <input type="hidden" name="nome" value="@colaborador.nome" />
+                            <input type="hidden" name="login" value="@colaborador.login" />
+                            <input type="hidden" name="senha" value="@colaborador.senha" />
+                            <input type="hidden" name="cpf" value="@colaborador.cpf" />
+                            <input type="hidden" name="rg" value="@colaborador.rg" />
+                            <input type="hidden" name="data_nasc" value="@colaborador.data_nasc" />
+                            <input type="hidden" name="telefone" value="@colaborador.telefone" />
+                            <input type="hidden" name="email" value="@colaborador.email" />
+                            <input type="hidden" name="cargo" value="@colaborador.cargo" />
+                            <input type="hidden" name="status" value="@colaborador.status" />
+                            <input type="hidden" name="nivel" value="@colaborador.nivel" />
+                            <input type="hidden" name="id" value="@colaborador.id" />
+                            <input type="submit" class="btn btn-primary btn-block" name="novoLogin" id="novoLoginEdit" value="Editar" />
+                        </td>
+                            }
+                        </tr>
+                            }
                     </tbody>
                 </table>
             </div>

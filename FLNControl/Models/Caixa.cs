@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using engenharia.Models.CaixaMovimentacao;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -14,7 +15,8 @@ namespace engenharia.Models.Caixa
         public DateTime data_fechamento { get; set; }
         public decimal valor_inicial { get; set; }
         public decimal valor_final { get; set; }
-
+        public string status { get; set; }
+        public List<Movimentacao> movimentacao { get; set; }
         public Caixa()
         {
         }

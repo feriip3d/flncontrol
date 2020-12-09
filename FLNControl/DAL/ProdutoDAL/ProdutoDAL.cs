@@ -98,6 +98,34 @@ namespace engenharia.DAL.ProdutoDAL
             return listaProduto;
         }
 
+        public List<Produto> findAll()
+        {
+            MySqlPersistence database = new MySqlPersistence();
+            string sql = @"SELECT * FROM produto";
+
+            DbDataReader result = database.ExecuteSelect(sql);
+            List<Produto> listaProduto = new List<Produto>();
+            if (result.HasRows)
+            {
+                Produto produto;
+                while (result.Read())
+                {
+                    produto = new Produto();
+                    produto.Id = Convert.ToInt32(result["pro_codigo"]);
+                    produto.Descricao = result["pro_descricao"].ToString();
+                    produto.Categoria = result["pro_categoria"].ToString();
+                    produto.Marca = result["pro_marca"].ToString();
+                    produto.ValorVenda = Convert.ToDecimal(result["pro_valor_venda"]);
+                    produto.ValorCompra = Convert.ToDecimal(result["pro_valor_compra"]);
+                    listaProduto.Add(produto);
+                }
+            }
+
+            database.Close();
+
+            return listaProduto;
+        }
+
         public List<Produto> findByBrand(string brand)
         {
             MySqlPersistence database = new MySqlPersistence();

@@ -35,6 +35,18 @@ namespace FLNControl.Controllers
             return View();
         }
 
+        [Route("Produto/Listar")]
+        public IActionResult Listar(int id)
+        {
+            ProdutoDAL dal = new ProdutoDAL();
+            List<Produto> produtos = dal.findAll();
+
+            return Json(new
+            {
+                produtos = produtos
+            });
+        }
+
         [Route("Produto/Alterar/Gravar")]
         public IActionResult Update([FromBody] JsonElement data)
         {
@@ -103,6 +115,11 @@ namespace FLNControl.Controllers
 
             switch (tipo)
             {
+                case "codigo":
+                    int id = Convert.ToInt32(data.GetProperty("termo").ToString());
+                    listaProdutos.Add(dal.find(id));
+                    break;
+
                 case "categ":
                     string categ = data.GetProperty("termo").ToString();
                     listaProdutos = dal.findByCategory(categ);

@@ -1,6 +1,8 @@
 let FLNUtil = {
     isEmpty: (item) => {
-        item = item.trim();
+        if (typeof item == 'string')
+            item = item.trim();
+
         return item === '' || item === undefined || item === [];
     },
 }

@@ -1,8 +1,4 @@
-﻿@model engenharia.Models.Colaborador.Colaborador
-@{
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-}
-
+﻿
 
 @section Scripts
 {
@@ -11,24 +7,21 @@
 
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
-    <div class="wrapper">
         <!-- Navbar -->
 
-
-        <div class="content-wrapper">
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <h1>Adicionar Perfil</h1>
+                            <h1>Primeiro Acesso</h1>
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
 
             <!-- Main content -->
-            <form id="form_validate">
-                <div class="form-row">
+            <form>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
@@ -38,102 +31,80 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="nomeForm">Nome Usuário *</label>
-                                        <input type="text" id="inputName" class="form-control required" value="@Model.nome"/>
+                                        <input type="text" id="inputName" class="form-control required">
                                     </div>
                                     <div class="col-6">
                                         <label for="loginForm">Login Usuário *</label>
-                                        <input type="text" id="inputLogin" class="form-control required" value="@Model.login">
+                                        <input type="text" id="inputLogin" class="form-control required">
                                     </div>
                                     <div class="col-4">
                                         <label for="senhaForm">Senha Usuário *</label>
-                                        <input type="password" id="inputSenha" class="form-control required" value="@Model.senha">
+                                        <input type="password" id="inputSenha" class="form-control required">
                                     </div>
                                     <div class="col-4">
                                         <label for="cpfForm">CPF *</label>
-                                        <input type="text" id="inputCPF" class="form-control required" value="@Model.cpf" onblur="mascaraDeCPF(this)" placeholder="000.000.000-00">
+                                        <input type="text" id="inputCPF" class="form-control required" onblur="mascaraDeCPF(this)" placeholder="000.000.000-00">
                                     </div>
                                     <div class="col-4">
                                         <label for="rgForm">RG *</label>
-                                        <input type="text" id="inputRG" class="form-control required" value="@Model.rg">
+                                        <input type="text" id="inputRG" class="form-control required">
                                     </div>
                                     <div class="col-4">
                                         <label for="dataNascForm">Data Nasc. *</label>
-                                        <input type="date" id="inputDataNasc" class="form-control required" value="@Model.data_nasc" onblur="mascaraDeData(this)" placeholder="dd/mm/aaaa">
+                                        <input type="date" id="inputDataNasc" class="form-control required" onblur="mascaraDeData(this)" placeholder="dd/mm/aaaa">
                                     </div>
                                     <div class="col-4">
                                         <label for="telForm">Telefone *</label>
-                                        <input type="text" id="inputTelefone" class="form-control required" value="@Model.telefone" onblur="mascaraDeTelefone(this)" placeholder="(99)99999-9999">
+                                        <input type="text" id="inputTelefone" class="form-control required" onblur="mascaraDeTelefone(this)" placeholder="(99)99999-9999">
                                     </div>
                                     <div class="col-4">
                                         <label for="emailForm">Email *</label>
-                                        <input type="text" id="inputEmail" class="form-control required" value="@Model.email">
+                                        <input type="text" id="inputEmail" class="form-control required">
                                     </div>
                                     <div class="col-4">
                                         <label for="cargoForm">Cargo *</label>
                                         <select class="form-control custom-select" id="cargoSelected">
-                                            @if (Model.cargo == "Gerente")
-                                            {
-                                                <option selected>Gerente</option>
-                                                <option>Vendedor</option>
-                                            }
-                                            else
-                                            {
-                                                <option>Gerente</option>
-                                                <option selected>Vendedor</option>
-                                            }
-
+                                            <option selected disabled>Selecione</option>
+                                            <option>Gerente</option>
+                                            <option>Vendedor</option>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label for="statusForm">Status *</label>
                                         <select class="form-control custom-select" id="statusSelected">
-                                            @if (Model.status == "Ativo")
-                                            {
-                                                <option selected>Ativo</option>
-                                                <option>Desativo</option>
-                                            }
-                                            else
-                                            {
-                                                <option>Ativo</option>
-                                                <option selected>Desativo</option>
-                                            }</select>
+                                            <option selected disabled>Selecione</option>
+                                            <option>Ativo</option>
+                                            <option>Desativo</option>
+                                        </select>
                                     </div>
                                     <div class="col-4">
                                         <label for="nivelForm">Nivel de Acesso *</label>
                                         <select class="form-control custom-select" id="nivelSelected">
-                                            @if (Model.nivel == "Total")
-                                            {
-                                                <option selected>Total</option>
-                                                <option>Restrito</option>
-                                            }
-                                            else
-                                            {
-                                                <option>Total</option>
-                                                <option selected>Restrito</option>
-                                            }</select>
+                                            <option selected disabled>Selecione</option>
+                                            <option>Total</option>
+                                            <option>Restrito</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <input type="hidden" name="id" id="id" value="@Model.id" />
-                            <input type="button" value="Editar" class="btn btn-success float-right" onclick="editarAcesso()">
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input type="button" value="Cadastrar Acesso" class="btn btn-outline-primary float-right" onclick="gravarPrimeiroAcesso()">
                     </div>
+                </div>
             </form>
             <p>&nbsp;</p>
             <p id="validate_message">&nbsp;</p>
             <p>&nbsp;</p>
             <!-- /.content -->
-        </div>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
-    </div>
     <!-- ./wrapper -->
 </body>

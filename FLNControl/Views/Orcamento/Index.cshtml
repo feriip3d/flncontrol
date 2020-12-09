@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Orçamentos</h1>
+                </div>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("GravarOrcamento", "Orcamento", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-2">
+                    <input type="submit" class="btn btn-primary btn-block float-right" name="novoOrcamento" id="novoOrcamento" value="Novo Orçamento">
+                </div>
+            </div>
+        }
+    </section>
+    <section class="content">
+
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">
+                                Cliente
+                            </th>
+                            <th style="width: 8%" class="text-center">
+                                Data Vencimento
+                            </th>
+                            <th style="width: 20%">
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>}

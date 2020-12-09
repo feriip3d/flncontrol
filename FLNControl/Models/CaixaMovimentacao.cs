@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace engenharia.Models.CaixaMovimentacao
 {
-    public class CaixaMovimentacao
+    public class Movimentacao
     {
         public int caixa_id { get; set; }
         public int colaborador_id { get; set; }
@@ -16,7 +16,7 @@ namespace engenharia.Models.CaixaMovimentacao
         public string motivo { get; set; }
         public string tipo { get; set; }
 
-        public CaixaMovimentacao()
+        public Movimentacao()
         {
         }
 

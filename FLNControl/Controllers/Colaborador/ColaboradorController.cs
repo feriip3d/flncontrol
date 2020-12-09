@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using engenharia.Models.Colaborador;
 using Microsoft.AspNetCore.Mvc;
 using engenharia.Models;
+using engenharia.DAL.ColaboradorDAL;
+using Microsoft.AspNetCore.Http;
+using engenharia.DAL.CaixaDAL;
+using engenharia.Models.Caixa;
 
 namespace engenharia.Controllers.ColaboradorController
 {
@@ -13,28 +17,81 @@ namespace engenharia.Controllers.ColaboradorController
     {
         public class ColaboradorController : Controller
         {
-            
+            public Colaborador usuario;
             public IActionResult Index()
             {
-                return View();
+                ColaboradorDAL udal = new ColaboradorDAL();
+                if ((udal.Listar()).Count == 0)
+                    return View("PrimeiroAcesso");
+                else
+                    return View();
             }
 
             [HttpPost]
             public JsonResult Autenticacao(string login, string senha)
-
             {
-                DAL.ColaboradorDAL.ColaboradorDAL ud = new DAL.ColaboradorDAL.ColaboradorDAL();
+                ColaboradorDAL ud = new ColaboradorDAL();
 
                 object loginVerifica = ud.ValidarUsuario(login, senha);
-                    
+
                 if (Convert.ToBoolean(loginVerifica) == true)
-                { 
+                {
+                    usuario = ud.Pegar(login);
+                    HttpContext.Session.SetString("usu_nivel", usuario.nivel);
+                    HttpContext.Session.SetString("usu_nome", usuario.nome);
+                    HttpContext.Session.SetInt32("usu_id", usuario.id);
+
+                    CaixaDAL cx = new CaixaDAL();
+                    Caixa caixa = new Caixa();
+
+                    caixa = cx.Atual();
+                    if (caixa.status == null)
+                    {
+                        caixa.status = "Novo";
+                    }
+                    HttpContext.Session.SetString("caixa_status", caixa.status);
+
                     var teste = new { retorno = true };
                     return Json(teste);
                 }
                 else
                 {
                     return Json(new { retorno = false });
+                }
+            }   
+
+            public JsonResult EditarUsuarioExistente(string nome, string login, string senha, string cpf, string rg, string data_nasc, string telefone, string email, string cargo, string status, string nivel, int id)
+            {
+                DAL.ColaboradorDAL.ColaboradorDAL ud = new DAL.ColaboradorDAL.ColaboradorDAL();
+                bool created = true;
+                bool loginVerifica = ud.verificarLoginExisteEdit(id, login);
+
+                if (loginVerifica == false)
+                {
+                    created = false;
+                    return Json(new
+                    {
+                        retorno = created,
+                    });
+                }
+                else
+                {
+                    bool editar = ud.EditarUsuario(nome, login, senha, cpf, rg, data_nasc, telefone, email, cargo, status, nivel, id);
+                    if (editar == true)
+                    {
+                        return Json(new
+                        {
+                            retorno = created,
+                        });
+                    }
+                    else
+                    {
+                        created = false;
+                        return Json(new
+                        {
+                            retorno = created,
+                        });
+                    }
                 }
             }
 
@@ -53,22 +110,9 @@ namespace engenharia.Controllers.ColaboradorController
                 }
             }
 
-            [HttpGet]
-            public ActionResult Editar(string nome, string login, string senha, string cpf, string rg, DateTime data_nasc, string telefone, string email, string cargo, string status, string nivel)
+            [HttpPost]
+            public ActionResult Editar(Colaborador colaborador)
             {
-                Colaborador colaborador = new Colaborador();
-                colaborador.nome = nome;
-                colaborador.login = login;
-                colaborador.senha = senha;
-                colaborador.cpf = cpf;
-                colaborador.rg = rg;
-                colaborador.data_nasc = data_nasc;
-                colaborador.telefone = telefone;
-                colaborador.email = email;
-                colaborador.cargo = cargo;
-                colaborador.status = status;
-                colaborador.nivel = nivel;
-
                 return View("Editar", colaborador);
             }
 
@@ -78,12 +122,10 @@ namespace engenharia.Controllers.ColaboradorController
                 return View("Gravar");
             }
 
-            
-
             [HttpPost]
             public ActionResult AutenticacaoEdit(string novologinEdit, string novasenhaEdit)
             {
-                DAL.ColaboradorDAL.ColaboradorDAL ud = new DAL.ColaboradorDAL.ColaboradorDAL();
+                ColaboradorDAL ud = new ColaboradorDAL();
 
                 bool loginVerifica = ud.ValidarUsuarioEdit(novologinEdit, novasenhaEdit);
 
@@ -101,7 +143,7 @@ namespace engenharia.Controllers.ColaboradorController
             [HttpPost]
             public ActionResult CadastrarAcesso(string nome, string login, string senha, string cpf, string rg, DateTime data_nasc, string telefone, string email, string cargo, string status, string nivel)
             {
-                DAL.ColaboradorDAL.ColaboradorDAL ud = new DAL.ColaboradorDAL.ColaboradorDAL();
+                ColaboradorDAL ud = new ColaboradorDAL();
 
                 bool created = true;
                 bool loginVerifica = ud.verificarLoginExiste(login);
@@ -117,7 +159,7 @@ namespace engenharia.Controllers.ColaboradorController
                 else
                 {
                     bool gravar = ud.GravarUsuario(nome, login, senha, cpf, rg, data_nasc, telefone, email, cargo, status, nivel);
-                    if(gravar == true)
+                    if (gravar == false)
                     {
                         return Json(new
                         {

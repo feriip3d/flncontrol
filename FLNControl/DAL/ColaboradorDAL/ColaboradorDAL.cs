@@ -14,8 +14,6 @@ namespace engenharia.DAL.ColaboradorDAL
         MySqlPersistence bd = new MySqlPersistence();
         public object ValidarUsuario(string login, string senha)
         {
-            object val;
-
             string sql = @"select count(*) from colaborador
                            where col_login = @Login and col_senha = @Senha and col_status = 'ativo'";
 
@@ -30,7 +28,6 @@ namespace engenharia.DAL.ColaboradorDAL
             else
                 return true;
         }
-
         public bool ValidarUsuarioEdit(string novologin, string novasenha)
         {
             List<int> listQtde = new List<int>();
@@ -53,13 +50,12 @@ namespace engenharia.DAL.ColaboradorDAL
                 return false;
             }
         }
-
         public bool GravarUsuario(string nome, string login, string senha, string cpf, string rg, DateTime data_nasc, string telefone, string email, string cargo, string status, string nivel)
         {
             int aux = 0;
             MySqlPersistence bd = new MySqlPersistence();
 
-            string sql = @"insert into colaborador (col_nome, col_login, col_senha, col_cpf, col_rg, col_data_nasc, col_telefone, col_email, col_cargo, col_status, col_nivel, col_data_adm)
+            string sql = @"insert into colaborador (col_nome, col_login, col_senha, col_cpf, col_rg, col_data_nascimento, col_telefone, col_email, col_cargo, col_status, col_nivel, col_data_adimissao)
                                                     values (@nome, @login, @senha, @cpf, @rg, @data_nasc, @telefone, @email, @cargo, @status, @nivel, @data_adm)";
 
             Dictionary<string, object> parameter = new Dictionary<string, object>();
@@ -75,7 +71,7 @@ namespace engenharia.DAL.ColaboradorDAL
             parameter.Add("@status", status);
             parameter.Add("@nivel", nivel);
             parameter.Add("@data_adm", DateTime.Today);
-            
+
             int hasWows = bd.ExecuteNonQuery(sql, parameter);
 
             if (aux > 0)
@@ -83,7 +79,38 @@ namespace engenharia.DAL.ColaboradorDAL
             else
                 return false;
         }
+        public bool EditarUsuario(string nome, string login, string senha, string cpf, string rg, string data_nasc, string telefone, string email, string cargo, string status, string nivel, int id)
+        {
+            int aux = 0;
+            MySqlPersistence bd = new MySqlPersistence();
 
+            string sql = @"UPDATE colaborador SET
+                            col_nome = @nome, col_senha = @senha, col_cpf = @cpf, col_rg = @rg, col_data_nascimento = @data_nasc,
+                            col_telefone = @telefone, col_email = @email, col_cargo = @cargo, col_status = @status, col_nivel = @nivel
+                            where col_codigo = @ID";
+
+            Dictionary<string, object> parameter = new Dictionary<string, object>();
+            parameter.Add("@nome", nome);
+            parameter.Add("@ID", id);
+            parameter.Add("@login", login);
+            parameter.Add("@senha", senha);
+            parameter.Add("@cpf", cpf);
+            parameter.Add("@rg", rg);
+            parameter.Add("@data_nasc", data_nasc);
+            parameter.Add("@telefone", telefone);
+            parameter.Add("@email", email);
+            parameter.Add("@cargo", cargo);
+            parameter.Add("@status", status);
+            parameter.Add("@nivel", nivel);
+            parameter.Add("@data_adm", DateTime.Today);
+
+            int hasWows = bd.ExecuteNonQuery(sql, parameter);
+
+            if (aux > 0)
+                return false;
+            else
+                return true;
+        }
         public bool verificarLoginExiste(string login)
         {
             string sql = @"select count(*) from colaborador
@@ -94,6 +121,23 @@ namespace engenharia.DAL.ColaboradorDAL
 
             int retorno = Convert.ToInt32(bd.ExecuteSelectScalar(sql, parameter));
 
+            if (retorno == null || retorno > 0)
+                return false;
+            else
+                return true;
+        }
+
+        public bool verificarLoginExisteEdit(int id, string login)
+        {
+            string sql = @"select * from colaborador
+                                where col_login = @Login and col_codigo <> @ID";
+
+            Dictionary<string, object> parameter = new Dictionary<string, object>();
+            parameter.Add("@Login", login);
+            parameter.Add("@ID", id);
+
+            int retorno = Convert.ToInt32(bd.ExecuteSelectScalar(sql, parameter));
+     
             if (retorno == null || retorno > 0)
                 return false;
             else
@@ -112,28 +156,6 @@ namespace engenharia.DAL.ColaboradorDAL
                         WHERE log_id = ;";
             //aqui
             return editar;
-        }
-
-        public bool primeiroAcesso(string login, string senha)
-        {
-            string sql = @"select col_id count(*) from colaborador where col_status = 'ativo'";
-
-            Dictionary<string, object> parameter = new Dictionary<string, object>();
-            parameter.Add("@login", login);
-            parameter.Add("@senha", senha);
-
-            int qtde_linhas = (int)bd.ExecuteSelectScalar(sql, parameter);
-
-
-            if (qtde_linhas == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
         }
 
         public string Gravar(string login, string senha)
@@ -158,7 +180,6 @@ namespace engenharia.DAL.ColaboradorDAL
 
         }
 
-
         public List<Colaborador> Listar()
         {
             List<Colaborador> lista = new List<Colaborador>();
@@ -169,12 +190,12 @@ namespace engenharia.DAL.ColaboradorDAL
             {
 
                 Colaborador colaborador = new Colaborador();
-                colaborador.id = (int)reader["col_id"];
+                colaborador.id = (int)reader["col_codigo"];
                 colaborador.nome = (string)reader["col_nome"];
                 colaborador.cpf = (string)reader["col_cpf"];
                 //colaborador.dependentes     = (int)reader["col_"];
-                colaborador.data_nasc = (DateTime)reader["col_data_nasc"];
-                colaborador.data_admissao = (DateTime)reader["col_data_adm"];
+                colaborador.data_nasc = (DateTime)reader["col_data_nascimento"];
+                colaborador.data_admissao = (DateTime)reader["col_data_adimissao"];
                 //colaborador.data_demissao   = (DateTime)reader["col_data_dem"];
                 colaborador.rg = (string)reader["col_rg"];
                 colaborador.telefone = (string)reader["col_telefone"];
@@ -190,6 +211,32 @@ namespace engenharia.DAL.ColaboradorDAL
 
             return lista;
         }
+
+        public Colaborador Pegar(string login)
+        {
+            MySqlDataReader reader = bd.ExecuteSelect(@"SELECT * FROM eng2banco.colaborador where col_login like '" + login + "'");
+            Colaborador colaborador = null;
+            if (reader.Read())
+            {
+                colaborador = new Colaborador();
+                colaborador.id = (int)reader["col_codigo"];
+                colaborador.nome = (string)reader["col_nome"];
+                colaborador.cpf = (string)reader["col_cpf"];
+                colaborador.data_nasc = (DateTime)reader["col_data_nascimento"];
+                colaborador.data_admissao = (DateTime)reader["col_data_adimissao"];
+                colaborador.rg = (string)reader["col_rg"];
+                colaborador.telefone = (string)reader["col_telefone"];
+                colaborador.email = (string)reader["col_email"];
+                colaborador.cargo = (string)reader["col_cargo"];
+                colaborador.senha = (string)reader["col_senha"];
+                colaborador.login = (string)reader["col_login"];
+                colaborador.status = (string)reader["col_status"];
+                colaborador.nivel = (string)reader["col_nivel"];
+            }
+
+            return colaborador;
+        }
+
         public void Dispose()
         {
             bd.Close();

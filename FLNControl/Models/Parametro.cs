@@ -7,6 +7,7 @@ namespace FLNControl.Models
 {
     public class Parametro
     {
+        private int _id;
         private string _razaoSocial;
         private string _nomeFantasia;
         private string _site;
@@ -91,5 +92,6 @@ namespace FLNControl.Models
             get => _UF;
             set => _UF = value;
         }
+        public int Id { get => _id; set => _id = value; }
     }
 }

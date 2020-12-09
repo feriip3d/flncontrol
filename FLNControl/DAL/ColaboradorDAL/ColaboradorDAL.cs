@@ -188,15 +188,12 @@ namespace engenharia.DAL.ColaboradorDAL
 
             while (reader.Read())
             {
-
                 Colaborador colaborador = new Colaborador();
                 colaborador.id = (int)reader["col_codigo"];
                 colaborador.nome = (string)reader["col_nome"];
                 colaborador.cpf = (string)reader["col_cpf"];
-                //colaborador.dependentes     = (int)reader["col_"];
                 colaborador.data_nasc = (DateTime)reader["col_data_nascimento"];
                 colaborador.data_admissao = (DateTime)reader["col_data_adimissao"];
-                //colaborador.data_demissao   = (DateTime)reader["col_data_dem"];
                 colaborador.rg = (string)reader["col_rg"];
                 colaborador.telefone = (string)reader["col_telefone"];
                 colaborador.email = (string)reader["col_email"];

@@ -2,6 +2,48 @@
 
 var validacaoMessage = "Por favor, responda o campo de preenchimento obrigatório (*)!";
 
+document.addEventListener('keydown', function (event) {
+    document.querySelector("#inputTelefone").value = document.querySelector("#inputTelefone").value.replace(/\(\d{2,}\) \d{4,}\-\d{5}/g, '');
+
+    if (/[0-9]/.test(event.key)) {
+        var i = document.querySelector("#inputTelefone").value.length;
+        if (i == 1) {
+            document.querySelector("#inputTelefone").value = "(" + document
+                .querySelector("#inputTelefone")
+                .value;
+        }
+        if (i == 3) {
+            document.querySelector("#inputTelefone").value = document
+                .querySelector("#inputTelefone")
+                .value + ")";
+        }
+        if (i == 8) {
+            document.querySelector("#inputTelefone").value = document
+                .querySelector("#inputTelefone")
+                .value + "-";
+        }
+    }
+});
+
+document.addEventListener('keydown', function (event) {
+    document.querySelector("#inputCPF").value = document.querySelector("#inputCPF").value.replace(/\d{3,}\.\d{3,}\.\d{3,}\-\d{2,}\.}/g, '');
+
+    if (/[0-9]/.test(event.key)) {
+        var i = document.querySelector("#inputCPF").value.length;
+        if (i == 3 || i ==7) {
+            document.querySelector("#inputCPF").value = document
+                .querySelector("#inputCPF")
+                .value + '.';
+        }
+
+        if (i == 11) {
+            document.querySelector("#inputCPF").value = document
+                .querySelector("#inputCPF")
+                .value + '-';
+        }
+    }
+});
+
 function gravarNovoAcesso() {
     var nome = $("#inputName").val();
     var login = $("#inputLogin").val();
@@ -14,6 +56,7 @@ function gravarNovoAcesso() {
     var status = $("#statusSelected").val();
     var nivel = $("#nivelSelected").val();
     var email = $("#inputEmail").val();
+
 
     let aux = 0;
     if (nome == "" || nome == "default" && $(nome).hasClass('required')) {
@@ -35,7 +78,7 @@ function gravarNovoAcesso() {
         $(senha).addClass('border');
         aux++;
     }
-    if (cpf == "" || cpf == "default" && $(cpf).hasClass('required')) {
+    if (cpf == "" || cpf == "default" && $(cpf).hasClass('required') ) {
         $(cpf).addClass('invalid');
         $(cpf).focus();
         $(cpf).addClass('border');
@@ -352,14 +395,3 @@ function mascaraDeTelefone() {
     }
 }
 
-function mascaraDeData() {
-    function mascaraDeData(data) {
-        const textoAtual = data.value;
-    }
-}
-
-function mascaraDeCPF() {
-    function mascaraDeCPF(CPF) {
-        const textoAtual = cpf.value;
-    }
-}

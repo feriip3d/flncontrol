@@ -24,10 +24,12 @@ namespace engenharia.Controllers.GerirCaixa
             if (caixa.status == null || caixa.status == "Fechado")
             {
                 caixa.status = "Fechado";
+                return View(caixa);
             }
             else
             {
                 caixa.status = "Aberto";
+                return View("ImpossivelEntrar");
             }
 
             return View(caixa);

@@ -28,9 +28,6 @@ namespace FLNControl.Controllers
             string parcelas = data.GetProperty("parcelas").ToString();
             var listaProdutos = data.GetProperty("listaProdutos").EnumerateArray().ToArray()[0];
 
-            VendaDAL dal = new VendaDAL();
-            dal.gravarVenda(cpf, nomeCli, endereco, numero, bairro, cidade, uf, formaPagamento, parcelas, listaProdutos);
-
             
 
             return Json(new

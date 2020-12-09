@@ -2,6 +2,29 @@
 
 var validacaoMessage = "Por favor, responda o campo de preenchimento obrigatório (*)!";
 
+
+document.addEventListener('keydown', function (event) {
+    document.querySelector("#dinheiro").value = document.querySelector("#dinheiro").value.replace(/[^\d,]/g, '');
+
+    if (/[0-9]/.test(event.key)) {
+        var i = document.querySelector("#dinheiro").value.length;
+        if (i >= 2) {
+            if (i == 2) var dist = 1; else dist = 2;
+            document.querySelector("#dinheiro").value = document
+                .querySelector("#dinheiro")
+                .value
+                .replace(',', '')
+                .substring(0, document.querySelector("#dinheiro").value.length - dist)
+                + ',' + document
+                .querySelector("#dinheiro")
+                    .value
+                    .replace(',', '')
+                    .replace(/[^\d]/, '')
+                .substring(document.querySelector("#dinheiro").value.length - dist);
+        }
+    }
+});
+
 function realizarMovimentacao(data_abertura, valor_final) {
     
     var operacao = $("#operacaoSelected").val();

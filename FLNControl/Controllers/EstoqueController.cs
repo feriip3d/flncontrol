@@ -40,11 +40,11 @@ namespace FLNControl.Controllers
             estoque.QtdeEstoque = estoqQtd;
             estoque.Status = "A";
 
-            bool success = dal.save(estoque) > 0;
+            dal.incrementarEstoque(Convert.ToInt32(estoqLote), estoqQtd);
 
             return Json(new
             {
-                success = success
+                success = true
             });
         }
     }

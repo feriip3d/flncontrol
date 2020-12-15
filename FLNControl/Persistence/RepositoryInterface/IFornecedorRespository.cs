@@ -10,7 +10,6 @@ namespace FLNControl.Persistence.RepositoryInterface
     {
         public Fornecedor BuscarFornecedorPorCodigo(int codigo);
         public Fornecedor GravarFornecedorCompleto(Fornecedor estoque);
-        public List<Fornecedor> (Fornecedor estoque);
 
     }
 }

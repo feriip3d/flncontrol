@@ -128,7 +128,6 @@
         selection.add(elem, selection.option[0]);
     },
     CarregarComboboxCidades: function () { }
-    
 }
 var ElementosEndereco = {
     CriarElemento: function () {
@@ -278,7 +277,9 @@ var ElementosEndereco = {
     }
 }
 
-/*Forma de carregar todos os elementos do card*/
+
+
+/*Forma de carregar todos os elementos do card */
 ElementosEndereco.CriarElemento();
 Endereco.BuscarTabelaEnderecos();
 /*Fim */

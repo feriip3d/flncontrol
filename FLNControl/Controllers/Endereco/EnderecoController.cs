@@ -7,7 +7,7 @@ using FLNControl.Models;
 
 namespace FLNControl.Controllers
 {
-    public class EnderecoController1 : Controller
+    public class EnderecoController : Controller
     {
         public IActionResult GravarEnderecoCompleto([FromBody] System.Text.Json.JsonElement dados)
         {
@@ -51,6 +51,22 @@ namespace FLNControl.Controllers
             //endereco.GravarEnderecoCompleto();
 
             return Json(endereco);
+        }
+        public IActionResult ListarTodosEnderecosCompletos(){
+
+            Endereco endereco = new Endereco();
+
+            List<Endereco> listaEndereco = endereco.ListarTodosEnderecos();
+
+            var response = new {
+                header = new {
+                    status = true,
+                    mensagem = "Retornou"                    
+                },
+                dados = listaEndereco
+            };
+
+            return Json(response);
         }
     }
 }

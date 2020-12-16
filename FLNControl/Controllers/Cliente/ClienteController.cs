@@ -17,10 +17,15 @@ namespace FLNControl.Controllers
         {
             return View();
         }
-        public IActionResult BuscarClientes(string query) 
+        public IActionResult Editar(string codigo)
+        {
+            return View("Editar",codigo);
+        }
+        
+        public IActionResult BuscarClientes() 
         {
             Cliente clientes = new Cliente();
-            List<Cliente> list = clientes.ListarTodosCliente(query);
+            List<Cliente> list = clientes.ListarTodosCliente();
             return Json(list);
         }
         public IActionResult PesquisarClientesPorNome(string nome)
@@ -41,7 +46,12 @@ namespace FLNControl.Controllers
             List<Cliente> list = clientes.ListarClientesPorTelefone(telefone);
             return Json(list);
         }
-
+        public IActionResult BuscarClientesPorCodigo(int codigo)
+        {
+            Cliente cliente = new Cliente().BuscarClientesPorCodigo(codigo);
+            return Json(cliente);
+        }
+        
         [HttpPost]
         public IActionResult CadastrarClienteCompleto([FromBody] System.Text.Json.JsonElement dados)
         {

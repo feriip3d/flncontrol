@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FLNControl.DAL.FornecedorDAL;
 
 namespace FLNControl.Models
 {
@@ -26,6 +27,7 @@ namespace FLNControl.Models
         public string Site { get => site; set => site = value; }
         public string NomeVendedor { get => nomeVendedor; set => nomeVendedor = value; }
         public string TelefoneVendedor { get => telefoneVendedor; set => telefoneVendedor = value; }
+
         public Fornecedor(int codigo, string nome, string cnpj, string telefone, string dados_bancarios, string email, string site, string nomeVendedor, string telefoneVendedor)
         {
             this.codigo = codigo;
@@ -55,139 +57,49 @@ namespace FLNControl.Models
         }
 
         public List<Fornecedor> ListarTodosFornecedores() {
-            List<Fornecedor> fornecedores = new List<Fornecedor>();
-
-            fornecedores.Add(new Fornecedor(1, "Fornecedor Jorge", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(2, "Fornecedor Jorge2", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(3, "Fornecedor Jorge3", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(4, "Fornecedor Jorge4", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-
-            return fornecedores;
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.ListarTodosFornecedores();
         }
         public List<Fornecedor> ListarFornecedoresPorNome(string nome)
         {
-            List<Fornecedor> fornecedores = new List<Fornecedor>();
-
-            fornecedores.Add(new Fornecedor(1, "Fornecedor Jorge", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(2, "Fornecedor Jorge2", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(3, "Fornecedor Jorge3", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(4, "Fornecedor Jorge4", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-
-
-            if (nome == null || nome == "")
-                return fornecedores;
-            else
-            {
-                List<Fornecedor> retorno = new List<Fornecedor>();
-                fornecedores.ForEach(forn =>
-                {
-                    if (forn.Nome == nome)
-                        retorno.Add(forn);
-                });
-                return retorno;
-            }
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.ListarTodosFornecedores();
         }
         public List<Fornecedor> ListarFornecedoresPorEmail(string email)
         {
-            List<Fornecedor> fornecedores = new List<Fornecedor>();
-
-            fornecedores.Add(new Fornecedor(1, "Fornecedor Jorge", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(2, "Fornecedor Jorge2", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(3, "Fornecedor Jorge3", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(4, "Fornecedor Jorge4", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-
-
-            if (email == null || email == "")
-                return fornecedores;
-            else
-            {
-                List<Fornecedor> retorno = new List<Fornecedor>();
-                fornecedores.ForEach(forn =>
-                {
-                    if (forn.Email == email)
-                        retorno.Add(forn);
-                });
-                return retorno;
-            }
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.ListarFornecedoresPorEmail(email);
         }
         public List<Fornecedor> ListarFornecedoresPorNomeVendedor(string nomeVendedor)
         {
-            List<Fornecedor> fornecedores = new List<Fornecedor>();
-
-            fornecedores.Add(new Fornecedor(1, "Fornecedor Jorge", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(2, "Fornecedor Jorge2", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(3, "Fornecedor Jorge3", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(4, "Fornecedor Jorge4", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-
-
-            if (nomeVendedor == null || nomeVendedor == "")
-                return fornecedores;
-            else
-            {
-                List<Fornecedor> retorno = new List<Fornecedor>();
-                fornecedores.ForEach(forn =>
-                {
-                    if (forn.NomeVendedor == nomeVendedor)
-                        retorno.Add(forn);
-                });
-                return retorno;
-            }
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.ListarFornecedoresPorNomeVendedor(nomeVendedor);
         }
         public List<Fornecedor> ListarFornecedoresPorTelefoneVendedor(string telefone)
         {
-            List<Fornecedor> fornecedores = new List<Fornecedor>();
-
-            fornecedores.Add(new Fornecedor(1, "Fornecedor Jorge", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(2, "Fornecedor Jorge2", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(3, "Fornecedor Jorge3", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(4, "Fornecedor Jorge4", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-
-
-            if (telefone == null || telefone == "")
-                return fornecedores;
-            else
-            {
-                List<Fornecedor> retorno = new List<Fornecedor>();
-                fornecedores.ForEach(forn =>
-                {
-                    if (forn.Telefone == telefone)
-                        retorno.Add(forn);
-                });
-                return retorno;
-            }
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.ListarFornecedoresPorTelefoneVendedor(telefone);
         }
 
         public Fornecedor BuscarFornecedorPorCodigo(int codigo)
         {
-            List<Fornecedor> fornecedores = new List<Fornecedor>();
-
-            fornecedores.Add(new Fornecedor(1, "Fornecedor Jorge", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(2, "Fornecedor Jorge2", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(3, "Fornecedor Jorge3", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-            fornecedores.Add(new Fornecedor(4, "Fornecedor Jorge4", "11111111111", "18996xxxxxx", "Dados Bancarios", "forcedor@email", "site.com.br", "Jorginho Vendas", "18996XXXXXX"));
-
-            if (codigo < 0)
-                return null;
-            else
-            {
-                Fornecedor retorno = new Fornecedor();
-                fornecedores.ForEach(forn =>
-                {
-                    if (forn.codigo == codigo)
-                        retorno = forn;
-                });
-                return retorno;
-            }
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.BuscarFornecedorPorCodigo(codigo);
         }
         public bool GravarFornecedorCompleto()
         {
-            this.Codigo = 1;
-            return this.Codigo > 0;
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.GravarFornecedorCompleto(this);
         }
         public bool ExcluirFornecedorFisico(int codigo)
         {
-            this.Codigo = 0;
-            return this.Codigo > 0;
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.ExcluirFornecedorFisico(codigo);
+        }
+        public bool AlterarFornecedorCompleto()
+        {
+            FornecedorDAL dal = new FornecedorDAL();
+            return dal.AlterarFornecedorCompleto(this);
         }
     }
 }

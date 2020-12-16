@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FLNControl.DAL.ClienteDAL;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.CodeAnalysis;
 using System;
@@ -67,119 +68,45 @@ namespace FLNControl.Models
         {
         }
 
-        public List<Cliente> ListarTodosCliente(string query) {
-            List<Cliente> clientes = new List<Cliente>();
-
-            clientes.Add(new Cliente(1, "Jorginho", "11111111111", "1899611111", "jorginho@email.com", "", 0, 2000.00,2,2));
-            clientes.Add(new Cliente(2, "Jorginho2", "2222222222", "1899622222", "jorginho@email.com", "", 0, 2000.00, 2,2));
-            clientes.Add(new Cliente(3, "Jorginho3", "33333333333", "1899633333", "jorginho@email.com", "", 0, 2000.00, 2,2));
-            clientes.Add(new Cliente(4, "Jorginho4", "44444444444", "1899644444", "jorginho@email.com", "", 0, 2000.00, 2,2));
-            clientes.Add(new Cliente(5, "Jorginho5", "55555555555", "189965555555", "jorginho@email.com", "", 0, 2000.00, 2,2));
-            
-            return clientes;    
+        public List<Cliente> ListarTodosCliente() {
+            ClienteDAL dal = new ClienteDAL();
+            return dal.ListarTodosCliente();
         }
         public List<Cliente> ListarClientesPorNome(string nome)
         {
-            List<Cliente> clientes = new List<Cliente>();
-
-            clientes.Add(new Cliente(1, "Jorginho", "11111111111", "1899611111", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(2, "Jorginho2", "2222222222", "1899622222", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(3, "Jorginho3", "33333333333", "1899633333", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(4, "Jorginho4", "44444444444", "1899644444", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(5, "Jorginho5", "55555555555", "189965555555", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-
-            if (nome == null || nome == "")
-                return clientes;
-            else
-            {
-                List<Cliente> retorno = new List<Cliente>();
-                clientes.ForEach(cli =>
-                {
-                    if (cli.Nome == nome)
-                        retorno.Add(cli);
-                });
-                return retorno;
-            }
+            ClienteDAL dal = new ClienteDAL();
+            return dal.ListarClientesPorNome(nome);
         }
         public List<Cliente> ListarClientesPorCPF(string cpf)
         {
-            List<Cliente> clientes = new List<Cliente>();
-
-            clientes.Add(new Cliente(1, "Jorginho", "11111111111", "1899611111", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(2, "Jorginho2", "2222222222", "1899622222", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(3, "Jorginho3", "33333333333", "1899633333", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(4, "Jorginho4", "44444444444", "1899644444", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(5, "Jorginho5", "55555555555", "189965555555", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-
-            if (cpf == null || cpf == "")
-                return clientes;
-            else
-            {
-                List<Cliente> retorno = new List<Cliente>();
-                clientes.ForEach(cli =>
-                {
-                    if (cli.Cpf == cpf)
-                        retorno.Add(cli);
-                });
-                return retorno;
-            }
+            ClienteDAL dal = new ClienteDAL();
+            return dal.ListarClientesPorCPF(cpf);
         }
         public List<Cliente> ListarClientesPorTelefone(string telefone)
         {
-            List<Cliente> clientes = new List<Cliente>();
-
-            clientes.Add(new Cliente(1, "Jorginho", "11111111111", "1899611111", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(2, "Jorginho2", "2222222222", "1899622222", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(3, "Jorginho3", "33333333333", "1899633333", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(4, "Jorginho4", "44444444444", "1899644444", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(5, "Jorginho5", "55555555555", "189965555555", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-
-            if (telefone == null || telefone == "")
-                return clientes;
-            else
-            {
-                List<Cliente> retorno = new List<Cliente>();
-                clientes.ForEach(cli =>
-                {
-                    if (cli.Telefone == telefone)
-                        retorno.Add(cli);
-                });
-                return retorno;
-            }
+            ClienteDAL dal = new ClienteDAL();
+            return dal.ListarClientesPorTelefone(telefone);
         }
         public Cliente BuscarClientesPorCodigo(int codigo)
         {
-            List<Cliente> clientes = new List<Cliente>();
-
-            clientes.Add(new Cliente(1, "Jorginho", "11111111111", "1899611111", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(2, "Jorginho2", "2222222222", "1899622222", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(3, "Jorginho3", "33333333333", "1899633333", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(4, "Jorginho4", "44444444444", "1899644444", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-            clientes.Add(new Cliente(5, "Jorginho5", "55555555555", "189965555555", "jorginho@email.com", "", 0, 2000.00, 2, 2));
-
-            if (codigo < 0)
-                return null;
-            else
-            {
-                Cliente retorno = new Cliente();
-                clientes.ForEach(cli =>
-                {
-                    if (cli.codigo == codigo)
-                        retorno = cli;
-                });
-                return retorno;
-            }
+            ClienteDAL dal = new ClienteDAL();
+            return dal.BuscarClientesPorCodigo(codigo);
         }
+
         public bool GravarClienteCompleto()
         {
-            this.Codigo = 1;
-            return this.Codigo > 0;
+            ClienteDAL dal = new ClienteDAL();
+            return dal.GravarClienteCompleto(this);
         }
         public bool ExcluirCliente(int codigo)
         {
-            this.Codigo = 0;
-            return this.Codigo > 0;
+            ClienteDAL dal = new ClienteDAL();
+            return dal.ExcluirCliente(codigo);
+        }  
+        public bool AlterarClienteCompleto()
+        {
+            ClienteDAL dal = new ClienteDAL();
+            return dal.AlterarClienteCompleto(this);
         }
-        
     }
 }

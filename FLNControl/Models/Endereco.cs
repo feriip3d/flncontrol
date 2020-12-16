@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FLNControl.DAL.EnderecoDAL;
 
 namespace FLNControl.Models
 {
@@ -60,137 +61,44 @@ namespace FLNControl.Models
         }
 
         public List<Endereco> ListarTodosEnderecos() {
-            List<Endereco> enderecos = new List<Endereco>();
-
-            enderecos.Add(new Endereco (1, "Rua não sei qual é", "Bairro desconheço", "Casa do Cliente", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-            enderecos.Add(new Endereco (2, "Rua não sei qual é", "Bairro desconheço", "Casa do Colaborador", "19200-000", "descrição, não sei", 1, 0, 1, 0));
-            enderecos.Add(new Endereco (3, "Rua não sei qual é", "Bairro desconheço", "Loja do Fornecedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco (4, "Rua não sei qual é", "Bairro desconheço", "Casa do Vendedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco (5, "Rua não sei qual é", "Bairro desconheço", "Endereco de entrega", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-
-
-            return enderecos;         
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.ListarTodosEnderecos();
         }
         public List<Endereco> ListarTodosEnderecosDeCliente(int codigoCliente = 0)
         {
-            List<Endereco> enderecos = new List<Endereco>();
-
-            enderecos.Add(new Endereco(1, "Rua não sei qual é", "Bairro desconheço", "Casa do Cliente", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-            enderecos.Add(new Endereco(2, "Rua não sei qual é", "Bairro desconheço", "Casa do Colaborador", "19200-000", "descrição, não sei", 1, 0, 1, 0));
-            enderecos.Add(new Endereco(3, "Rua não sei qual é", "Bairro desconheço", "Loja do Fornecedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(4, "Rua não sei qual é", "Bairro desconheço", "Casa do Vendedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(5, "Rua não sei qual é", "Bairro desconheço", "Endereco de entrega", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-
-            if (codigoCliente <= 0) {
-                List<Endereco> retorno = new List<Endereco>();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigoCliente > 0)
-                        retorno.Add(end);
-                });
-                return retorno;
-            }
-            else
-            {
-                List<Endereco> retorno = new List<Endereco>();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigoCliente == codigoCliente)
-                        retorno.Add(end);
-                });
-                return retorno;
-            }
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.ListarTodosEnderecosDeCliente(codigoCliente);
         }
         public List<Endereco> ListarTodosEnderecosDeColaborador(int codigoColaborador = 0)
         {
-            List<Endereco> enderecos = new List<Endereco>();
-
-            enderecos.Add(new Endereco(1, "Rua não sei qual é", "Bairro desconheço", "Casa do Cliente", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-            enderecos.Add(new Endereco(2, "Rua não sei qual é", "Bairro desconheço", "Casa do Colaborador", "19200-000", "descrição, não sei", 1, 0, 1, 0));
-            enderecos.Add(new Endereco(3, "Rua não sei qual é", "Bairro desconheço", "Loja do Fornecedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(4, "Rua não sei qual é", "Bairro desconheço", "Casa do Vendedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(5, "Rua não sei qual é", "Bairro desconheço", "Endereco de entrega", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-
-            if (codigoColaborador <= 0)
-            {
-                List<Endereco> retorno = new List<Endereco>();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigoColaborador > 0)
-                        retorno.Add(end);
-                });
-                return retorno;
-            }
-            else
-            {
-                List<Endereco> retorno = new List<Endereco>();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigoColaborador == codigoColaborador)
-                        retorno.Add(end);
-                });
-                return retorno;
-            }
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.ListarTodosEnderecosDeColaborador(codigoColaborador);
         }
         public List<Endereco> ListarTodosEnderecosDeFornecedor(int codigoFornecedor = 0)
         {
-            List<Endereco> enderecos = new List<Endereco>();
-
-            enderecos.Add(new Endereco(1, "Rua não sei qual é", "Bairro desconheço", "Casa do Cliente", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-            enderecos.Add(new Endereco(2, "Rua não sei qual é", "Bairro desconheço", "Casa do Colaborador", "19200-000", "descrição, não sei", 1, 0, 1, 0));
-            enderecos.Add(new Endereco(3, "Rua não sei qual é", "Bairro desconheço", "Loja do Fornecedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(4, "Rua não sei qual é", "Bairro desconheço", "Casa do Vendedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(5, "Rua não sei qual é", "Bairro desconheço", "Endereco de entrega", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-
-            if (codigoFornecedor <= 0)
-            {
-                List<Endereco> retorno = new List<Endereco>();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigoColaborador > 0)
-                        retorno.Add(end);
-                });
-                return retorno;
-            }
-            else
-            {
-                List<Endereco> retorno = new List<Endereco>();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigoColaborador == codigoFornecedor)
-                        retorno.Add(end);
-                });
-                return retorno;
-            }
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.ListarTodosEnderecosDeFornecedor(codigoFornecedor);
         }
         public Endereco PesquisarEnderecoPorCodigo(int codigo = 0)
         {
-            List<Endereco> enderecos = new List<Endereco>();
-
-            enderecos.Add(new Endereco(1, "Rua não sei qual é", "Bairro desconheço", "Casa do Cliente", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-            enderecos.Add(new Endereco(2, "Rua não sei qual é", "Bairro desconheço", "Casa do Colaborador", "19200-000", "descrição, não sei", 1, 0, 1, 0));
-            enderecos.Add(new Endereco(3, "Rua não sei qual é", "Bairro desconheço", "Loja do Fornecedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(4, "Rua não sei qual é", "Bairro desconheço", "Casa do Vendedor", "19200-000", "descrição, não sei", 1, 0, 0, 1));
-            enderecos.Add(new Endereco(5, "Rua não sei qual é", "Bairro desconheço", "Endereco de entrega", "19200-000", "descrição, não sei", 1, 1, 0, 0));
-
-            if (codigo <= 0)
-                return null;
-            else
-            {
-                Endereco retorno = new Endereco();
-                enderecos.ForEach(end =>
-                {
-                    if (end.codigo == codigo)
-                        retorno = end;
-                });
-                return retorno;
-            }
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.PesquisarEnderecoPorCodigo(codigo);
         }
 
         public bool GravarEnderecoCompleto()
         {
-            this.codigo = 10;
-            return this.codigo > 0;
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.GravarEnderecoCompleto(this);
+        }
+        public bool ExcluirEnderecoFisico(int codigo)
+        {
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.ExcluirEnderecoFisico(codigo);
+        }
+        public bool AlterarEnderecoCompleto()
+        {
+            EnderecoDAL dal = new EnderecoDAL();
+            return dal.AlterarEnderecoCompleto(this);
         }
     }
 }

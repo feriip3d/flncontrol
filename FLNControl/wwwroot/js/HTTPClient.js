@@ -14,7 +14,7 @@
         return promes;
 
     },
-    get: function (url, dados) {
+    get: function (url) {
 
         let config = {
             method: "GET",

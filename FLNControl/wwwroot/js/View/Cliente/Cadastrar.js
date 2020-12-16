@@ -1,7 +1,6 @@
 ﻿
 let Cadastrar = {
     GravarCliente: function () {
-
         var { dados, retorno } = this.ValidarDados();
         if (retorno) {
             HTTPClient.post('/Cliente/CadastrarClienteCompleto', dados)
@@ -19,9 +18,6 @@ let Cadastrar = {
         }
         else
             alert("erro");
-        
-
-
     },
     ValidarDados: function () {
         var inputNome = document.querySelector('#inputNome');
@@ -29,7 +25,7 @@ let Cadastrar = {
         var inputTelefone = document.querySelector('#inputTelefone');
         var inputEmail = document.querySelector('#inputEmail');
         var inputDataNascimento = document.querySelector('#inputDataNascimento');
-        var checkFiado = document.querySelector('#checkFiado');
+        var checkFiado = document.querySelector('#checorpoformulariockFiado');
         var inputValorLimiteFiado = document.querySelector('#inputValorLimiteFiado');
         var inputParcelasFiado = document.querySelector('#inputParcelasFiado');
         var inputDiasVencimento = document.querySelector('#inputDiasVencimento');
@@ -40,42 +36,48 @@ let Cadastrar = {
             telefone: inputTelefone.value,
             email: inputEmail.value,
             dataNascimento: inputDataNascimento.value ,
-            fiado: checkFiado.value == 'on'?1:0,
+            fiado: checkFiado.value,
             valorLimiteFiado: inputValorLimiteFiado.value == "" ? 0 : inputValorLimiteFiado.value,
-            dataVencimento: inputDiasVencimento.value,
-            parcelasLimiteFiado: inputParcelasFiado.value,
+            dataVencimento: inputDiasVencimento.options[inputDiasVencimento.selectedIndex].value,
+            parcelasLimiteFiado: inputParcelasFiado.options[inputParcelasFiado.selectedIndex].value
         };
+
 
         var erros = [];
 
         if (inputNome.value == '') {
             erros.push({
                 campo: 'inputNome',
-                mensagem: 'vazio'
+                mensagem: 'vazio',
+                elemento: inputNome
             });
         }
         if (inputCpf.value == '') {
             erros.push({
                 campo: 'inputCpf',
-                mensagem: 'vazio'
+                mensagem: 'vazio',
+                elemento: inputCpf
             });
         }
         if (inputTelefone.value == '') {
             erros.push({
                 campo: 'inputTelefone',
-                mensagem: 'vazio'
+                mensagem: 'vazio',
+                elemento: inputTelefone
             });
         }
         if (inputEmail.value == '') {
             erros.push({
                 campo: 'inputEmail',
-                mensagem: 'vazio'
+                mensagem: 'vazio',
+                elemento: inputEmail
             });
         }
         if (inputDataNascimento.value == '') {
             erros.push({
                 campo: 'inputDataNascimento',
-                mensagem: 'vazio'
+                mensagem: 'vazio',
+                elemento: inputDataNascimento
             });
         }
         if (checkFiado.checked) {
@@ -83,19 +85,22 @@ let Cadastrar = {
             if (inputValorLimiteFiado.value == '') {
                 erros.push({
                     campo: 'inputValorLimiteFiado',
-                    mensagem: 'vazio'
+                    mensagem: 'vazio',
+                    elemento: inputValorLimiteFiado
                 });
             }
-            if (inputParcelasFiado.value == '') {
+            if (inputParcelasFiado.options[inputParcelasFiado.selectedIndex].value == '') {
                 erros.push({
                     campo: 'inputParcelasFiado',
-                    mensagem: 'vazio'
+                    mensagem: 'vazio',
+                    elemento: inputParcelasFiado
                 });
             }
-            if (inputDiasVencimento.value == '') {
+            if (inputDiasVencimento.options[inputDiasVencimento.selectedIndex].value == '') {
                 erros.push({
                     campo: 'inputDiasVencimento',
-                    mensagem: 'vazio'
+                    mensagem: 'vazio',
+                    elemento: inputDiasVencimento
                 });
             }
         }
@@ -127,11 +132,13 @@ let CadastrarConfig = {
         element.checked = element.checked == true;
 
         if (element.checked) {
+            element.value = 1;
             elementDias.hidden = false;
             elementValor.hidden = false;
             elementParcelas.hidden = false;
         }
         else {
+            lement.value = 0;
             elementDias.hidden = true;
             elementValor.hidden = true;
             elementParcelas.hidden = true;

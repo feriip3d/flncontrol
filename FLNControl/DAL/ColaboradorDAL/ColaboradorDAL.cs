@@ -26,8 +26,23 @@ namespace engenharia.DAL.ColaboradorDAL
             if (retorno == null || Convert.ToInt32(retorno) == 0)
                 return false;
             else
+
+
                 return true;
         }
+
+        public bool Usuarios (string status)
+        {
+            string sql = @"SELECT COUNT(*) FROM eng2banco.colaborador where col_status = 'Ativo'";
+
+            Int64 qtde_linhas = (Int64)bd.ExecuteSelectScalar(sql, null);
+
+            if (qtde_linhas == 1)
+                return false;
+            else
+                return true;
+        }
+
         public bool ValidarUsuarioEdit(string novologin, string novasenha)
         {
             List<int> listQtde = new List<int>();
@@ -79,7 +94,7 @@ namespace engenharia.DAL.ColaboradorDAL
             else
                 return false;
         }
-        public bool EditarUsuario(string nome, string login, string senha, string cpf, string rg, string data_nasc, string telefone, string email, string cargo, string status, string nivel, int id)
+        public bool EditarUsuario(string nome, string login, string senha, string cpf, string rg, DateTime data_nasc, string telefone, string email, string cargo, string status, string nivel, int id)
         {
             int aux = 0;
             MySqlPersistence bd = new MySqlPersistence();

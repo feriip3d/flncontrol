@@ -9,6 +9,7 @@ using engenharia.DAL.ColaboradorDAL;
 using Microsoft.AspNetCore.Http;
 using engenharia.DAL.CaixaDAL;
 using engenharia.Models.Caixa;
+using Microsoft.AspNetCore.Identity;
 
 namespace engenharia.Controllers.ColaboradorController
 {
@@ -21,6 +22,7 @@ namespace engenharia.Controllers.ColaboradorController
             public IActionResult Index()
             {
                 ColaboradorDAL udal = new ColaboradorDAL();
+
                 if ((udal.Listar()).Count == 0)
                     return View("PrimeiroAcesso");
                 else
@@ -31,7 +33,6 @@ namespace engenharia.Controllers.ColaboradorController
             public JsonResult Autenticacao(string login, string senha)
             {
                 ColaboradorDAL ud = new ColaboradorDAL();
-
                 object loginVerifica = ud.ValidarUsuario(login, senha);
 
                 if (Convert.ToBoolean(loginVerifica) == true)
@@ -51,6 +52,8 @@ namespace engenharia.Controllers.ColaboradorController
                     }
                     HttpContext.Session.SetString("caixa_status", caixa.status);
 
+                    ViewBag.Nivel = usuario.nivel;
+
                     var teste = new { retorno = true };
                     return Json(teste);
                 }
@@ -60,13 +63,18 @@ namespace engenharia.Controllers.ColaboradorController
                 }
             }   
 
-            public JsonResult EditarUsuarioExistente(string nome, string login, string senha, string cpf, string rg, string data_nasc, string telefone, string email, string cargo, string status, string nivel, int id)
+            public JsonResult EditarUsuarioExistente(string nome, string login, string senha, string cpf, string rg, DateTime data_nasc, string telefone, string email, string cargo, string status, string nivel, int id)
             {
                 DAL.ColaboradorDAL.ColaboradorDAL ud = new DAL.ColaboradorDAL.ColaboradorDAL();
                 bool created = true;
+                bool ativoVerifica = true;
                 bool loginVerifica = ud.verificarLoginExisteEdit(id, login);
+                if(status != "Ativo")
+                {
+                    ativoVerifica = ud.Usuarios(status);
+                }
 
-                if (loginVerifica == false)
+                if (loginVerifica == false || ativoVerifica == false)
                 {
                     created = false;
                     return Json(new

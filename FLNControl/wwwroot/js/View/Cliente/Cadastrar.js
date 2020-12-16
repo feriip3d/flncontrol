@@ -104,7 +104,6 @@ let Cadastrar = {
         var retorno = erros.length == 0;
         return { dados, retorno };
     }
-
 }
 
 

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FLNControl.DAL;
+using FLNControl.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FLNControl.Controllers
 {
@@ -15,24 +17,49 @@ namespace FLNControl.Controllers
             return View();
         }
 
+        public IActionResult Novo()
+        {
+            return View();
+        }
+
         public IActionResult Efetuar([FromBody] JsonElement data)
         {
-            string cpf = data.GetProperty("cpf").ToString();
-            string nomeCli = data.GetProperty("nomeCli").ToString();
-            string endereco = data.GetProperty("endereco").ToString();
-            string numero = data.GetProperty("numero").ToString();
-            string bairro = data.GetProperty("bairro").ToString();
-            string cidade = data.GetProperty("cidade").ToString();
-            string uf = data.GetProperty("uf").ToString();
-            string formaPagamento = data.GetProperty("formaPagamento").ToString();
-            string parcelas = data.GetProperty("parcelas").ToString();
-            var listaProdutos = data.GetProperty("listaProdutos").EnumerateArray().ToArray()[0];
-
-            
+            CarrinhoCompra carrinho = JsonConvert.DeserializeObject<CarrinhoCompra>(data.ToString());
+            VendaDAL dal = new VendaDAL();
+            int idVenda = dal.gravarVenda(carrinho);
 
             return Json(new
             {
+                id = idVenda
             });
-       }
+        }
+
+        public IActionResult Visualizar(int id)
+        {
+            VendaDAL vdal = new VendaDAL();
+            List<Object> dados = vdal.find(id);
+            ViewBag.Dados = dados;
+
+            return View();
+        }
+
+        public IActionResult Consultar([FromBody] JsonElement data)
+        {
+            string tipo = data.GetProperty("tipo").ToString();
+            VendaDAL dal = new VendaDAL();
+            List<Object> vendas = new List<Object>();
+
+            switch (tipo)
+            {
+                case "nome":
+                    string nome = data.GetProperty("termo").ToString();
+                    vendas.Add(dal.findByName(nome));
+                    break;
+            }
+            return Json(new
+            {
+                vendas = vendas,
+            });
+        }
     }
 }

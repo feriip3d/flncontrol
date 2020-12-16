@@ -48,11 +48,24 @@ namespace engenharia.DAL.EstoqueDAL
             database.Close();
         }
 
+        public void decrementarEstoqueProd(int prodCodigo, int estoqueQtd)
+        {
+            MySqlPersistence database = new MySqlPersistence();
+            string sql = @"UPDATE estoque SET est_quantidade = IF(est_quantidade > @pEstoqueQtd, est_quantidade - @pEstoqueQtd, est_quantidade) WHERE pro_codigo = @pProd AND est_status = '1' LIMIT 1";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@pProd", prodCodigo);
+            parameters.Add("@pEstoqueQtd", estoqueQtd);
+
+            database.ExecuteNonQuery(sql, parameters);
+            database.Close();
+        }
+
         public void incrementarEstoque(int loteProd, int estoqueQtd)
         {
             MySqlPersistence database = new MySqlPersistence();
-            string sql = @"UPDATE estoque SET est_quantidade = IF(est_quantidade > 0, est_quantidade + @pEstoqueQtd, 0) WHERE est_lote = @pLoteProd AND est_status = '1' LIMIT 1";
-
+            string sql = @"UPDATE estoque SET est_quantidade = est_quantidade + @pEstoqueQtd WHERE est_lote = @pLoteProd AND est_status = '1' LIMIT 1";
+            
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@pLoteProd", loteProd);
             parameters.Add("@pEstoqueQtd", estoqueQtd);

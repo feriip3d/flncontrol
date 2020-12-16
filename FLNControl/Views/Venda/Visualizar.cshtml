@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["TituloPagina"] = "Gerenciar Venda";
+    ViewData["ClasseBody"] = "hold-transition register-page";
+    Layout = "_LayoutDashboard";
+    List<Object> Dados = ViewBag.Dados;
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Visualizando Venda</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" id="f-parametros">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="i-cpf"><b style="color:red">*</b> CPF</label>
+                        <input type="text" class="form-control" id="i-cpf" maxlength="14" placeholder="Insira o CPF do Cliente" value="@Dados[3]" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-nomecli"><b style="color:red">*</b> Nome do Cliente</label>
+                        <input type="text" class="form-control" id="i-nomecli" placeholder="Insira o Nome do Cliente" value="@Dados[2]" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-endereco"><b style="color:red">*</b> Endereço</label>
+                        <input type="text" class="form-control" id="i-endereco" placeholder="Insira o Endereço do Cliente" value="@Dados[4]" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-numero"><b style="color:red">*</b> Número</label>
+                        <input type="text" class="form-control" id="i-numero" placeholder="Insira o Número do Endereço do Cliente" value="@Dados[5]" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-bairro"><b style="color:red">*</b> Bairro</label>
+                        <input type="text" class="form-control" id="i-bairro" placeholder="Insira o Bairro do Endereço do Cliente" value="@Dados[6]" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-cidade"><b style="color:red">*</b> Cidade</label>
+                        <input type="text" class="form-control" id="i-cidade" placeholder="Insira a Cidade do Cliente" value="@Dados[7]" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-uf"><b style="color:red">*</b> UF</label>
+                        <input type="text" class="form-control" id="i-uf" placeholder="Insira a UF do Cliente" value="@Dados[8]" disabled>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-11 col-sm-10">
+                                            <h3 class="card-title" style="padding-top:6px">Itens do pedido</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body table-responsive p-0" style="height: 200px;">
+                                                    <table class="table table-head-fixed text-nowrap" id="tb-lista-produtos">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Produto</th>
+                                                                <th>Quantidade</th>
+                                                                <th>Preço Unitário</th>
+                                                                <th>Valor Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @{
+                                                                int valorTotalCompra = 0;
+                                                                List<Object> itens = new List<Object>((IEnumerable<Object>)Dados[9]);
+                                                            }
+                                                            @foreach (var i in itens)
+                                                            {
+                                                                int valorTotalProd;
+                                                                List<Object> pInfo = new List<Object>((IEnumerable<Object>)i);
+                                                                valorTotalProd = Convert.ToInt32(pInfo[1]) * Convert.ToInt32(pInfo[0]);
+                                                                valorTotalCompra += valorTotalProd;
+                                                                <tr>
+                                                                    <td>@pInfo[2]</td>
+                                                                    <td>@pInfo[0]</td>
+                                                                    <td>@Convert.ToDecimal(pInfo[1]).ToString("C")</td>
+                                                                    <td>@Convert.ToDecimal(valorTotalProd).ToString("C")</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <span>Total: </span>
+                                                    <span id="sp-total">@Convert.ToDecimal(valorTotalCompra).ToString("C")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-11 col-sm-10">
+                                            @{ 
+                                                string formaPagamento = "";
+                                                switch(Convert.ToInt32(Dados[1]))
+                                                {
+                                                    case 1:
+                                                        formaPagamento = "À Vista";
+                                                        break;
+
+                                                    case 2:
+                                                        formaPagamento = "À Prazo";
+                                                        break;
+                                                }
+                                            }
+                                            <h3 class="card-title" style="padding-top:6px">Forma de Pagamento: @formaPagamento</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body table-responsive p-0" style="height: 200px;">
+                                                    <table class="table table-head-fixed text-nowrap" id="tb-lista-produtos">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Data de Vencimento</th>
+                                                                <th>Status</th>
+                                                                <th>Valor</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @{
+                                                                List<Object> parcelas = new List<Object>((IEnumerable<Object>)Dados[10]);
+                                                                @foreach (var p in parcelas)
+                                                                {
+                                                                    String status = "";
+                                                                    List<Object> parcelaInfo = new List<Object>((IEnumerable<Object>)p);
+                                                                    switch(Convert.ToInt32(parcelaInfo[1]))
+                                                                    {
+                                                                        case 0:
+                                                                            status = "Pendente";
+                                                                            break;
+
+                                                                        case 1:
+                                                                            status = "Pago";
+                                                                            break;
+                                                                    }
+                                                                    <tr>
+                                                                        <td>@Convert.ToDateTime(parcelaInfo[0]).ToString("dd/MM/yyyy")</td>
+                                                                        <td>@status</td>
+                                                                        <td>@Convert.ToDecimal(parcelaInfo[2]).ToString("C")</td>
+                                                                    </tr>
+                                                                 }
+                                                             }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="card-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-default" onclick="history.back()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/adminlte3/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts
+{
+    <script src="~/adminlte3/plugins/toastr/toastr.min.js"></script>
+}

@@ -1,5 +1,5 @@
-﻿@{
-    ViewData["TituloPagina"] = "Gerenciar Venda";
+@{
+    ViewData["TituloPagina"] = "Consultar Produtos";
     ViewData["ClasseBody"] = "hold-transition register-page";
     Layout = "_LayoutDashboard";
 }
@@ -9,159 +9,99 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Nova Venda</h3>
+                <h3 class="card-title">Consultar Produtos</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" id="f-parametros">
+            <form role="form" id="f-consultar">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="i-cpf"><b style="color:red">*</b> CPF</label>
-                        <input type="text" class="form-control" id="i-cpf" maxlength="14" placeholder="Insira o CPF do Cliente">
+                        <label for="i-termo-busca">Termo de Busca</label>
+                        <input type="text" class="form-control" id="i-termo-busca" placeholder="Insira o termo de busca">
                     </div>
-                    <div class="form-group">
-                        <label for="i-nomecli"><b style="color:red">*</b> Nome do Cliente</label>
-                        <input type="text" class="form-control" id="i-nomecli" placeholder="Insira o Nome do Cliente">
+                    <span>Buscar por: </span>
+                    <div class="custom-control custom-radio" style="display:inline-block; margin-left: 10px; cursor:pointer;">
+                        <input class="custom-control-input rd-tipo-termo" type="radio" id="rd-name" name="rd-tipo-termo" checked value="nome">
+                        <label for="rd-name" class="custom-control-label">Nome</label>
                     </div>
-                    <div class="form-group">
-                        <label for="i-endereco"><b style="color:red">*</b> Endereço</label>
-                        <input type="text" class="form-control" id="i-endereco" placeholder="Insira o Endereço do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="i-numero"><b style="color:red">*</b> Número</label>
-                        <input type="text" class="form-control" id="i-numero" placeholder="Insira o Número do Endereço do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="i-bairro"><b style="color:red">*</b> Bairro</label>
-                        <input type="text" class="form-control" id="i-bairro" placeholder="Insira o Bairro do Endereço do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="i-cidade"><b style="color:red">*</b> Cidade</label>
-                        <input type="text" class="form-control" id="i-cidade" placeholder="Insira a Cidade do Cliente">
-                    </div>
-                    <div class="form-group">
-                        <label for="i-uf"><b style="color:red">*</b> UF</label>
-                        <input type="text" class="form-control" id="i-uf" placeholder="Insira a UF do Cliente">
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-info">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-md-11 col-sm-10">
-                                            <h3 class="card-title" style="padding-top:6px">Itens do pedido</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label>Produto</label>
-                                            <select class="form-control" id="s-prod">
-                                                <option value="">Selecione...</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="i-qtde-prod">Quantidade</label>
-                                        <input type="number" class="form-control" id="i-qtde-prod" placeholder="Digite a quantidade de produtos" min="1">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body table-responsive p-0" style="height: 200px;">
-                                                    <table class="table table-head-fixed text-nowrap" id="tb-lista-produtos">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Produto</th>
-                                                                <th>Quantidade</th>
-                                                                <th>Preço Unitário</th>
-                                                                <th>Valor Total</th>
-                                                                <th>Ações</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <span>Total: R$</span>
-                                                    <span id="sp-total">0,00</span>
-                                                    <button type="button" class="btn btn-primary float-right" onclick="FLNVenda.adicionarProduto()">Adicionar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </hr>
-                    <div class="form-group">
-                        <label for="s-forma-pag"><b style="color:red">*</b> Forma de pagamento</label>
-                        <select id="s-forma-pag" class="form-control">
-                            <option value="1">À vista</option>
-                            <option value="2">À prazo</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="d-s-parcelas" style="display:none">
-                        <label for="s-parcelas"><b style="color:red">*</b> Parcelas</label>
-                        <select id="s-parcelas" class="form-control">
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
+                    <div class="custom-control custom-radio" style="display:inline-block; margin-left: 10px; cursor:pointer;">
+                        <input class="custom-control-input rd-tipo-termo" type="radio" id="rd-categ" name="rd-tipo-termo" value="cpf">
+                        <label for="rd-categ" class="custom-control-label">CPF</label>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-default" onclick="history.back()">Cancelar</button>
-                    <button type="button" class="btn btn-success float-right" onclick="FLNVenda.efetuarVenda()">Efetuar Venda</button>
+                    <button type="button" class="btn btn-default" onclick="FLNVenda.inicio()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="FLNVenda.limpar('f-consultar')">Limpar</button>
+                    <button type="button" class="btn btn-success float-right" onclick="FLNVenda.consultar()">Consultar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<div class="row" id="rowResultado" style="display:none;">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Resultado da Pesquisa</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="resultadoBusca" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Valor</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Valor</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @section Styles
 {
-    <link rel="stylesheet" href="~/adminlte3/plugins/toastr/toastr.min.css">
+      <link rel="stylesheet" href="~/adminlte3/plugins/toastr/toastr.min.css">
+      <link rel="stylesheet" href="~/adminlte3/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+      <link rel="stylesheet" href="~/adminlte3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 }
 
 @section Scripts
 {
     <script type="module" src="~/flncontrol/js/Venda.js"></script>
     <script src="~/adminlte3/plugins/toastr/toastr.min.js"></script>
+    <script src="~/adminlte3/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminlte3/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/adminlte3/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/adminlte3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function () {
-            FLNVenda.listarProdutos();
-
-            $('#s-forma-pag').on('change', function () {
-                if ($('#s-forma-pag').val() == 2) {
-                    $('#d-s-parcelas').show();
-                } else {
-                    $('#d-s-parcelas').hide();
-                }
-            });
-
-            document.addEventListener('keydown', function (event) {
-                document.querySelector("#i-cpf").value = document.querySelector("#i-cpf").value.replace(/\d{3,}\.\d{3,}\.\d{3,}\-\d{2,}\.}/g, '');
-
-                if (/[0-9]/.test(event.key)) {
-                    var i = document.querySelector("#i-cpf").value.length;
-                    if (i == 3 || i == 7)
-                        document.querySelector("#i-cpf").value = document
-                            .querySelector("#i-cpf")
-                            .value + '.';
-
-                    if (i == 11)
-                        document.querySelector("#i-cpf").value = document
-                            .querySelector("#i-cpf")
-                            .value + '-';
-                }
-            });
+    $(document).ready(function() {
+        $('#resultadoBusca').on('click', 'tbody tr', function () {
+            let id = $(this).find("td:first").html();
+            window.location.href = "/Venda/Visualizar/"+id;
         });
+
+        $('input[type=radio][name=rd-tipo-termo]').change(function () {
+            if (this.value == 'all') {
+                $("#i-termo-busca").prop('disabled', true);
+            }
+            else {
+                $("#i-termo-busca").prop('disabled', false);
+            }
+        });
+
+        $('#f-consultar').on('reset', function (e) {
+            $("#i-termo-busca").prop('disabled', false);
+        });
+    });
     </script>
 }

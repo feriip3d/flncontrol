@@ -58,8 +58,8 @@
                                     </div>
                                     <div class="col-4">
                                         <label for="dataNascForm">Data Nasc. *</label>
-                                        <input type="date" id="inputDataNasc" class="form-control required" value="@Model.data_nasc" >
-                                    </div>
+                                        <input type="date" id="inputDataNasc" class="form-control required" value="@Model.data_nasc.ToString("yyyy-MM-dd")" >
+                                    </div>  
                                     <div class="col-4">
                                         <label for="telForm">Telefone *</label>
                                         <input type="text" id="inputTelefone" class="form-control required" value="@Model.telefone" >

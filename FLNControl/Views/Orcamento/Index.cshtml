@@ -49,11 +49,11 @@
                         {
                         <tr>
                             <td class="text">
-                                @orcamento.cli_Id
+                                @orcamento.nomeCliente
                             </td>
                             <td class="project-state">
                                 <span class="badge @(orcamento.Data_Validade > DateTime.Now ? "badge-success" : "badge-danger") ">
-                                    @orcamento.Data_Validade
+                                    @orcamento.Data_Validade.ToShortDateString()
                                 </span>
                             </td>
                             <td class="text-center" style="width: 8%">
@@ -61,9 +61,11 @@
                             </td>
                             @using (Html.BeginForm("Editar", "Orcamento", FormMethod.Post))
                             {
-                                <td class="project-actions text-right">
-                                    <input type="submit" class="btn btn-primary" name="novoOrcamento" id="novoOrcamentoEdit" value="Editar" />
-                                </td>
+                        <td class="project-actions text-right">
+                            <input type="hidden" name="orc_codigo" value="@orcamento.Id" />
+                            <input type="hidden" name="cli_codigo" value="@orcamento.cli_Id" />
+                            <input type="submit" class="btn btn-primary" name="novoOrcamento" id="novoOrcamentoEdit" value="Editar" />
+                        </td>
                             }
                             @using (Html.BeginForm("Excluir", "Orcamento", FormMethod.Post))
                             {

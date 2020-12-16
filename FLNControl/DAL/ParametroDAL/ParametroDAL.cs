@@ -48,13 +48,13 @@ namespace engenharia.DAL.ParametroDAL
             if(parametros.Id == 0)
             {
                 sql = @"INSERT 
-                parametrizacao(par_codigo, par_razao_social, par_nome_fantasia, par_site
-                    par_email, par_cnpj, par_inscricao_estadual, par_telefone
-                    par_url_logo_grande, par_url_logo_pequeno
+                parametrizacao(par_codigo, par_razao_social, par_nome_fantasia, par_site,
+                    par_email, par_cnpj, par_inscricao_estadual, par_telefone,
+                    par_url_logo_grande, par_url_logo_pequeno,
                     par_endereco, par_cidade, par_uf)
                 VALUES('1', @pRazaoSocial, @pNomeFantasia, @pSite,
                     @pEmail, @pCnpj, @pInscEstadual, @pTelefone,
-                    @pUrlLogoGrande, @pUrlLogoPequeno, @pEndereco
+                    @pUrlLogoGrande, @pUrlLogoPequeno, @pEndereco,
                     @pCidade, @pUF)";
             } else
             {

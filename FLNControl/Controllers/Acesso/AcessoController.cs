@@ -16,6 +16,8 @@ namespace engenharia.Controllers.Acesso
 
             List<Colaborador> lista = model.Listar();
                 return View(lista);
+
+
         }
     }
 }

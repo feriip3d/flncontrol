@@ -84,6 +84,7 @@
         HTTPClient.get("/Cliente/PesquisarClientesPorNome?nome=" + query)
             .then(
                 function (retornoServidor) {
+
                     return retornoServidor.json()
                 }
             )

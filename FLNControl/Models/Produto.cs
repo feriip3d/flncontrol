@@ -13,7 +13,14 @@ namespace FLNControl.Models
         private string _marca;
         private decimal _valor_venda;
         private decimal _valor_compra;
+        private Cliente _cliente;
+        private int _quantidade;
+        private int _orcamentoId;
 
+        public Cliente cliente { get; set; }
+
+        public int quantidade { get; set; }
+        public int orcamentoId { get; set; }
         public int Id
         {
             get => _id;

@@ -66,101 +66,189 @@ window.FLNProduto = {
     consultar: () => {
         let termo = document.querySelector("#i-termo-busca").value;
         let tipo = document.querySelector("input[name=rd-tipo-termo]:checked").value;
-        if(FLNUtil.isEmpty(termo)) {
-            toastr.error('O Campo <b>Termo de Pesquisa</b> precisa ser preenchido.');
-        } else if (termo.trim().length < 3) {
-            toastr.error('O Campo <b>Termo de Pesquisa</b> precisa ter no mínimo <b>3</b> caracteres.');
-        }
-        else
-        {
-            if(FLNUtil.isEmpty(tipo)) {
-                toastr.error('O Campo <b>Tipo</b> precisa ser selecionado!');
-            } else {
-                document.querySelector("#rowResultado").style.display = "none";
-                let requestData = {
-                    termo: termo,
-                    tipo: tipo,
-                }
 
-                HTTPRequest.post('/Produto/Consultar', requestData)
-                    .then((requestResponse) => {
-                        return requestResponse.json();
-                    })
+        if (tipo == 'all') {
+            HTTPRequest.get('/Produto/ListarTodos')
+                .then((requestResponse) => {
+                    return requestResponse.json();
+                })
 
-                    .then((requestResponse) => {
-                        if(requestResponse.total > 0) {
-                            document.querySelector("#rowResultado").style.display = "block";
-                            $('#resultadoBusca').DataTable( {
-                                "data": requestResponse.produtos,
-                                "retrieve": true,
-                                "columns": [
-                                    { data: "id" },
-                                    { data: "categoria" },
-                                    { data: "descricao" },
-                                    { data: "marca" },
-                                    {
-                                        "data": "valorVenda",
-                                        "render": (data, type, row, meta) => {
-                                            return "R$ "+parseFloat(data).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits:2})
-                                        }
-                                    },
-                                    {
-                                        "data": "valorCompra",
-                                        "render": (data, type, row, meta) => {
-                                            return "R$ "+parseFloat(data).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits:2})
-                                        }
-                                    },
-                                ],
-                                "language": {
-                                    "sEmptyTable": "Nenhum registro encontrado",
-                                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                                    "sInfoPostFix": "",
-                                    "sInfoThousands": ".",
-                                    "sLengthMenu": "_MENU_ resultados por página",
-                                    "sLoadingRecords": "Carregando...",
-                                    "sProcessing": "Processando...",
-                                    "sZeroRecords": "Nenhum registro encontrado",
-                                    "sSearch": "Pesquisar",
-                                    "oPaginate": {
-                                        "sNext": "Próximo",
-                                        "sPrevious": "Anterior",
-                                        "sFirst": "Primeiro",
-                                        "sLast": "Último"
-                                    },
-                                    "oAria": {
-                                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                                    },
-                                    "select": {
-                                        "rows": {
-                                            "_": "Selecionado %d linhas",
-                                            "0": "Nenhuma linha selecionada",
-                                            "1": "Selecionado 1 linha"
-                                        }
-                                    },
-                                    "buttons": {
-                                        "copy": "Copiar para a área de transferência",
-                                        "copyTitle": "Cópia bem sucedida",
-                                        "copySuccess": {
-                                            "1": "Uma linha copiada com sucesso",
-                                            "_": "%d linhas copiadas com sucesso"
-                                        }
+                .then((requestResponse) => {
+                    if (requestResponse.total > 0) {
+                        document.querySelector("#rowResultado").style.display = "block";
+                        $('#resultadoBusca').DataTable().destroy();
+                        $('#resultadoBusca').DataTable({
+                            "data": requestResponse.produtos,
+                            "destroy": true,
+                            "retrieve": true,
+                            "columns": [
+                                { data: "id" },
+                                { data: "categoria" },
+                                { data: "descricao" },
+                                { data: "marca" },
+                                {
+                                    "data": "valorVenda",
+                                    "render": (data, type, row, meta) => {
+                                        return "R$ " + parseFloat(data).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                    }
+                                },
+                                {
+                                    "data": "valorCompra",
+                                    "render": (data, type, row, meta) => {
+                                        return "R$ " + parseFloat(data).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                    }
+                                },
+                            ],
+                            "language": {
+                                "sEmptyTable": "Nenhum registro encontrado",
+                                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                                "sInfoPostFix": "",
+                                "sInfoThousands": ".",
+                                "sLengthMenu": "_MENU_ resultados por página",
+                                "sLoadingRecords": "Carregando...",
+                                "sProcessing": "Processando...",
+                                "sZeroRecords": "Nenhum registro encontrado",
+                                "sSearch": "Pesquisar",
+                                "oPaginate": {
+                                    "sNext": "Próximo",
+                                    "sPrevious": "Anterior",
+                                    "sFirst": "Primeiro",
+                                    "sLast": "Último"
+                                },
+                                "oAria": {
+                                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                                },
+                                "select": {
+                                    "rows": {
+                                        "_": "Selecionado %d linhas",
+                                        "0": "Nenhuma linha selecionada",
+                                        "1": "Selecionado 1 linha"
+                                    }
+                                },
+                                "buttons": {
+                                    "copy": "Copiar para a área de transferência",
+                                    "copyTitle": "Cópia bem sucedida",
+                                    "copySuccess": {
+                                        "1": "Uma linha copiada com sucesso",
+                                        "_": "%d linhas copiadas com sucesso"
                                     }
                                 }
-                            });
-                            $('#resultadoBusca tbody tr').css("cursor", "pointer");
-                        } else {
-                            toastr.warning('Nenhum dado encontrado')
-                        }
-                    })
-                    .catch((requestResponse) => {
-                        console.log(requestResponse);
-                        toastr.error('Ocorreu um erro inesperado ao realizar a busca. Tente novamente mais tarde.');
-                    }).finally(() => {
+                            }
+                        });
+                        $('#resultadoBusca tbody tr').css("cursor", "pointer");
+                    } else {
+                        toastr.warning('Nenhum dado encontrado')
+                    }
+                })
+                .catch((requestResponse) => {
+                    console.log(requestResponse);
+                    toastr.error('Ocorreu um erro inesperado ao realizar a busca. Tente novamente mais tarde.');
+                }).finally(() => {
 
                 });
+        }
+        else {
+            if (FLNUtil.isEmpty(termo)) {
+                toastr.error('O Campo <b>Termo de Pesquisa</b> precisa ser preenchido.');
+            }
+            else if (termo.trim().length < 3) {
+                toastr.error('O Campo <b>Termo de Pesquisa</b> precisa ter no mínimo <b>3</b> caracteres.');
+            }
+            else {
+                if (FLNUtil.isEmpty(tipo)) {
+                    toastr.error('O Campo <b>Tipo</b> precisa ser selecionado!');
+                } else {
+                    document.querySelector("#rowResultado").style.display = "none";
+                    let requestData = {
+                        termo: termo,
+                        tipo: tipo,
+                    }
+
+                    HTTPRequest.post('/Produto/Consultar', requestData)
+                        .then((requestResponse) => {
+                            return requestResponse.json();
+                        })
+
+                        .then((requestResponse) => {
+                            if (requestResponse.total > 0) {
+                                document.querySelector("#rowResultado").style.display = "block";
+                                $('#resultadoBusca').DataTable().destroy();
+                                $('#resultadoBusca').DataTable({
+                                    "data": requestResponse.produtos,
+                                    "destroy": true,
+                                    "retrieve": true,
+                                    "columns": [
+                                        { data: "id" },
+                                        { data: "categoria" },
+                                        { data: "descricao" },
+                                        { data: "marca" },
+                                        {
+                                            "data": "valorVenda",
+                                            "render": (data, type, row, meta) => {
+                                                return "R$ " + parseFloat(data).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                            }
+                                        },
+                                        {
+                                            "data": "valorCompra",
+                                            "render": (data, type, row, meta) => {
+                                                return "R$ " + parseFloat(data).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                            }
+                                        },
+                                    ],
+                                    "language": {
+                                        "sEmptyTable": "Nenhum registro encontrado",
+                                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                                        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                                        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                                        "sInfoPostFix": "",
+                                        "sInfoThousands": ".",
+                                        "sLengthMenu": "_MENU_ resultados por página",
+                                        "sLoadingRecords": "Carregando...",
+                                        "sProcessing": "Processando...",
+                                        "sZeroRecords": "Nenhum registro encontrado",
+                                        "sSearch": "Pesquisar",
+                                        "oPaginate": {
+                                            "sNext": "Próximo",
+                                            "sPrevious": "Anterior",
+                                            "sFirst": "Primeiro",
+                                            "sLast": "Último"
+                                        },
+                                        "oAria": {
+                                            "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                            "sSortDescending": ": Ordenar colunas de forma descendente"
+                                        },
+                                        "select": {
+                                            "rows": {
+                                                "_": "Selecionado %d linhas",
+                                                "0": "Nenhuma linha selecionada",
+                                                "1": "Selecionado 1 linha"
+                                            }
+                                        },
+                                        "buttons": {
+                                            "copy": "Copiar para a área de transferência",
+                                            "copyTitle": "Cópia bem sucedida",
+                                            "copySuccess": {
+                                                "1": "Uma linha copiada com sucesso",
+                                                "_": "%d linhas copiadas com sucesso"
+                                            }
+                                        }
+                                    }
+                                });
+                                $('#resultadoBusca tbody tr').css("cursor", "pointer");
+                            } else {
+                                toastr.warning('Nenhum dado encontrado')
+                            }
+                        })
+                        .catch((requestResponse) => {
+                            console.log(requestResponse);
+                            toastr.error('Ocorreu um erro inesperado ao realizar a busca. Tente novamente mais tarde.');
+                        }).finally(() => {
+
+                        });
+                }
             }
         }
     },
@@ -315,6 +403,6 @@ window.FLNProduto = {
     },
     
     limpar: (form) => {
-        document.querySelector("#"+form).reset();
+        document.querySelector("#" + form).reset();
     }
 }

@@ -32,6 +32,10 @@
                         <input class="custom-control-input rd-tipo-termo" type="radio" id="rd-brand" name="rd-tipo-termo" value="brand">
                         <label for="rd-brand" class="custom-control-label">Marca</label>
                     </div>
+                    <div class="custom-control custom-radio" style="display:inline-block; margin-left: 10px; cursor:pointer;">
+                        <input class="custom-control-input rd-tipo-termo" type="radio" id="rd-all" name="rd-tipo-termo" value="all">
+                        <label for="rd-all" class="custom-control-label">Listar Todos</label>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-default" onclick="FLNProduto.inicio()">Cancelar</button>
@@ -98,6 +102,19 @@
         $('#resultadoBusca').on('click', 'tbody tr', function () {
             let id = $(this).find("td:first").html();
             window.location.href = "/Produto/Visualizar/"+id;
+        });
+
+        $('input[type=radio][name=rd-tipo-termo]').change(function () {
+            if (this.value == 'all') {
+                $("#i-termo-busca").prop('disabled', true);
+            }
+            else {
+                $("#i-termo-busca").prop('disabled', false);
+            }
+        });
+
+        $('#f-consultar').on('reset', function (e) {
+            $("#i-termo-busca").prop('disabled', false);
         });
     });
     </script>

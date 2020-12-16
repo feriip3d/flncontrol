@@ -142,5 +142,18 @@ namespace FLNControl.Controllers
                 total = listaProdutos.Count
             });
         }
+
+        public IActionResult ListarTodos()
+        {
+            ProdutoDAL dal = new ProdutoDAL();
+            List<Produto> listaProdutos = new List<Produto>();
+
+            listaProdutos = dal.findAll();
+            return Json(new
+            {
+                produtos = listaProdutos,
+                total = listaProdutos.Count
+            });
+        }
     }
 }
